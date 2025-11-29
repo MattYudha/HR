@@ -1,0 +1,12 @@
+import { PrismaClient } from '@prisma/client';
+declare const prismaClientSingleton: () => PrismaClient<{
+    log: ("query" | "warn" | "error")[];
+}, "query" | "warn" | "error", import("@prisma/client/runtime/client").DefaultArgs>;
+declare global {
+    var prisma: ReturnType<typeof prismaClientSingleton> | undefined;
+}
+declare const prisma: PrismaClient<{
+    log: ("query" | "warn" | "error")[];
+}, "query" | "warn" | "error", import("@prisma/client/runtime/client").DefaultArgs>;
+export default prisma;
+//# sourceMappingURL=prisma.d.ts.map

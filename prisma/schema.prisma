@@ -1,0 +1,145 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/* ==========================
+   ROLE MODEL
+   ========================== */
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users     User[]
+
+  @@map("app_roles")
+}
+
+/* ==========================
+   USER MODEL
+   ========================== */
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  roleId    String   @map("role_id")
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  role      Role     @relation(fields: [roleId], references: [id])
+  employee  Employee?
+
+  @@map("app_users")
+}
+
+/* ==========================
+   EMPLOYEE MODEL
+   ========================== */
+model Employee {
+  id            String     @id @default(uuid())
+  userId        String     @unique @map("user_id")
+  fullName      String     @map("full_name")
+  phone         String?
+  address       String?
+  position      String?
+  department    String?
+  joinDate      DateTime   @default(now()) @map("join_date")
+  baseSalary    Decimal    @default(0) @map("base_salary") @db.Decimal(15, 2)
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  user          User       @relation(fields: [userId], references: [id])
+  attendances   Attendance[]
+  approvals     Approval[]
+  payrolls      Payroll[]
+  kpis          KPI[]
+
+  @@map("app_employees")
+}
+
+/* ==========================
+   ATTENDANCE MODEL
+   ========================== */
+model Attendance {
+  id          String    @id @default(uuid())
+  employeeId  String    @map("employee_id")
+  checkIn     DateTime? @map("check_in")
+  checkOut    DateTime? @map("check_out")
+  date        DateTime  @default(now())
+  status      String    @default("PRESENT")
+  notes       String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+
+  @@map("app_attendances")
+}
+
+/* ==========================
+   APPROVAL MODEL
+   ========================== */
+model Approval {
+  id            String    @id @default(uuid())
+  employeeId    String    @map("employee_id")
+  type          String
+  title         String
+  description   String?
+  status        String    @default("PENDING")
+  requestDate   DateTime  @default(now()) @map("request_date")
+  approvedDate  DateTime? @map("approved_date")
+  approvedBy    String?   @map("approved_by")
+  notes         String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  employee      Employee  @relation(fields: [employeeId], references: [id])
+
+  @@map("app_approvals")
+}
+
+/* ==========================
+   PAYROLL MODEL
+   ========================== */
+model Payroll {
+  id            String    @id @default(uuid())
+  employeeId    String    @map("employee_id")
+  period        String
+  baseSalary    Decimal   @map("base_salary") @db.Decimal(15, 2)
+  allowances    Decimal   @default(0) @db.Decimal(15, 2)
+  deductions    Decimal   @default(0) @db.Decimal(15, 2)
+  totalSalary   Decimal   @map("total_salary") @db.Decimal(15, 2)
+  status        String    @default("PENDING")
+  paidDate      DateTime? @map("paid_date")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  employee      Employee  @relation(fields: [employeeId], references: [id])
+
+  @@map("app_payrolls")
+}
+
+/* ==========================
+   KPI MODEL
+   ========================== */
+model KPI {
+  id          String    @id @default(uuid())
+  employeeId  String    @map("employee_id")
+  period      String
+  score       Decimal   @db.Decimal(5, 2)
+  category    String
+  notes       String?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+
+  @@map("app_kpis")
+}
