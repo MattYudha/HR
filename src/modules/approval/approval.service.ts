@@ -18,7 +18,9 @@ export class ApprovalService {
 
     return await approvalRepository.createApproval({
       employeeId: employee.id,
-      ...data,
+      type: data.type,
+      title: data.title,
+      description: data.description,
       status: 'PENDING'
     });
   }

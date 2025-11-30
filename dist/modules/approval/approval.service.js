@@ -14,7 +14,9 @@ class ApprovalService {
         }
         return await approval_repository_1.default.createApproval({
             employeeId: employee.id,
-            ...data,
+            type: data.type,
+            title: data.title,
+            description: data.description,
             status: 'PENDING'
         });
     }
