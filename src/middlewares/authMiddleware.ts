@@ -33,7 +33,8 @@ export const authMiddleware = async (
     const user = await prisma.user.findUnique({
       where: { id: decoded.sub },
       include: {
-        role: true
+        role: true,
+        employee: true // Include employee to get employeeId
       }
     });
 
@@ -48,7 +49,8 @@ export const authMiddleware = async (
     req.user = {
       id: user.id,
       email: user.email,
-      role: user.role.name
+      role: user.role.name,
+      employeeId: user.employee?.id // Add employeeId if employee exists
     };
 
     next();

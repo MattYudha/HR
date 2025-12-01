@@ -9,6 +9,10 @@ import attendanceRoutes from './modules/attendance/attendance.routes';
 import approvalRoutes from './modules/approval/approval.routes';
 import payrollRoutes from './modules/payroll/payroll.routes';
 import kpiRoutes from './modules/kpi/kpi.routes';
+import dashboardRoutes from './modules/dashboard/dashboard.routes';
+import payrollPayRoutes from './modules/payroll/payroll.pay.routes';
+import payrollDetailRoutes from './modules/payroll/payroll.detail.routes';
+import payrollPdfRoutes from './modules/payroll/payroll.pdf.routes';
 
 const app: Application = express();
 
@@ -38,7 +42,11 @@ app.use('/api/employees', employeesRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/approval', approvalRoutes);
 app.use('/api/payroll', payrollRoutes);
+app.use('/api/payroll', payrollPayRoutes);
+app.use('/api/payroll', payrollDetailRoutes);
+app.use('/api/payroll', payrollPdfRoutes);
 app.use('/api/kpi', kpiRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
 }
 
 /* ==========================
@@ -116,6 +116,8 @@ model Payroll {
   allowances    Decimal   @default(0) @db.Decimal(15, 2)
   deductions    Decimal   @default(0) @db.Decimal(15, 2)
   totalSalary   Decimal   @map("total_salary") @db.Decimal(15, 2)
+  pph21         Decimal   @default(0) @db.Decimal(15, 2)
+  takeHomePay   Decimal   @default(0) @map("take_home_pay") @db.Decimal(15, 2)
   status        String    @default("PENDING")
   paidDate      DateTime? @map("paid_date")
   createdAt     DateTime  @default(now()) @map("created_at")
@@ -143,3 +145,5 @@ model KPI {
 
   @@map("app_kpis")
 }
+
+
