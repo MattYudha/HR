@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import payrollDetailController from './payroll.detail.controller';
 import { authMiddleware } from '../../middlewares/authMiddleware';
-import { checkPayrollAccess } from '../../middlewares/payrollAccessMiddleware';
+import { checkRole } from '../../middlewares/roleMiddleware';
 
 const router = Router();
 
-router.get('/:id', authMiddleware, checkPayrollAccess, (req, res) =>
-  payrollDetailController.getPayrollDetail(req, res)
+// ADMIN & HR: Can view any payroll detail
+router.get('/:id', 
+  authMiddleware, 
+  checkRole(['SUPER_ADMIN', 'HR_ADMIN']), 
+  (req, res) => payrollDetailController.getPayrollDetail(req, res)
 );
 
 export default router;

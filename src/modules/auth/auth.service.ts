@@ -19,13 +19,19 @@ export class AuthService {
       roleId
     });
 
-    const token = this.generateToken(user.id, user.email);
+    // Fetch the user again to get the role object
+    const newUserWithRole = await authRepository.findUserByEmailWithRole(user.email);
+    if (!newUserWithRole) {
+      throw new Error('Failed to create user correctly');
+    }
 
-    return { user, token };
+    const token = this.generateToken(newUserWithRole.id, newUserWithRole.email, newUserWithRole.role.name);
+
+    return { user: newUserWithRole, token };
   }
 
   async login(email: string, password: string) {
-    const user = await authRepository.findUserByEmail(email);
+    const user = await authRepository.findUserByEmailWithRole(email);
 
     if (!user || !user.isActive) {
       throw new Error('Invalid credentials');
@@ -37,14 +43,14 @@ export class AuthService {
       throw new Error('Invalid credentials');
     }
 
-    const token = this.generateToken(user.id, user.email);
+    const token = this.generateToken(user.id, user.email, user.role.name);
 
     return { user, token };
   }
 
-  private generateToken(userId: string, email: string): string {
+  private generateToken(userId: string, email: string, role: string): string {
     return jwt.sign(
-      { sub: userId, email },
+      { sub: userId, email, role },
       env.JWT_SECRET,
       { expiresIn: '24h' }
     );

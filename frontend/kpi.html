@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Performance &amp; KPI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0ea5e9", // Sky-500 from the prompt
+              "background-light": "#f8fafc",
+              "background-dark": "#0f1d23",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body class="font-display bg-gradient-to-br from-slate-50 to-sky-50">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex w-64 flex-col gap-4 border-r border-slate-200/60 bg-white/70 p-4 backdrop-blur-lg">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="SkyHR company logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBKS5G54ZL52wRUlOfJmmYLhH0GbpiMm_l_-W2CoAP8Ua2z-BDBFq_1BYt7s7trJklCBGqfJYaWyW5bg4VXAJK5dWBYpySJL4LMnLOqerp8KnxG2xcYMqfY2sdlm3eoN6IFFRRGildHM_Zq8FezZOPXCACQR7rtxQBEF4HRVcoc6t3_2rstU8K2dIYxUxx5eqrFtY1NpQzWM6ORmViC5d97BlBQl49yXPfypNz2olxhGqqKZeXqQ8WJELBxFBAPPxamKap1_HHIHBo");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 text-base font-medium leading-normal">SkyHR</h1>
+<p class="text-slate-500 text-sm font-normal leading-normal">HR &amp; Payroll</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-primary/10 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-primary/10 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">receipt_long</span>
+<p class="text-sm font-medium leading-normal">Payroll</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<p class="text-sm font-medium leading-normal">Performance &amp; KPI</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-primary/10 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">person_add</span>
+<p class="text-sm font-medium leading-normal">Recruitment</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-primary/10 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">event_busy</span>
+<p class="text-sm font-medium leading-normal">Time Off</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-primary/10 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">pie_chart</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 hover:bg-primary/10 hover:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex flex-1 flex-col">
+<!-- TopNavBar -->
+<header class="flex h-20 items-center justify-between whitespace-nowrap border-b border-slate-200/60 bg-white/70 px-10 py-3 backdrop-blur-lg">
+<div class="flex items-center gap-4 text-slate-900">
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Performance &amp; KPI</h2>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4">
+<label class="relative flex min-w-40 max-w-64">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">search</span>
+<input class="form-input h-10 w-full rounded-lg border-none bg-slate-100 pl-12 pr-4 text-slate-800 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50" placeholder="Search..." value=""/>
+</label>
+<div class="flex gap-2">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200">
+<span class="material-symbols-outlined text-xl">chat_bubble</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmFb0SJhxEh6HNmDwZfFtAMqIrR0ezM06Un-oiTeTYVszqywxnWSNSoeH0j8HczfhWPs7u37z4Qa4-O6jg3jG89g03bJcp8-29DyrNYhMhEtNOEe4xlMocrD5TPwkLJBZA8nTNK_d64IWfvgad03bsC48XdHe9YjBysbSc5i4BFon38UTJ7ju8ghxFPvztl71qZFrQ6IMVRunneXlFhX0Y5wFKq9jSvstmRO8aHECWhXD6wUAHeR0fiprTuNG7nXNJcBOPnjguQBc");'></div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 overflow-y-auto p-8">
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+<!-- Left Column -->
+<div class="col-span-1 flex flex-col gap-6 lg:col-span-2">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<!-- Chips -->
+<div class="flex flex-wrap gap-3">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/80 px-4 py-2 ring-1 ring-inset ring-slate-200/80 backdrop-blur-sm">
+<p class="text-slate-700 text-sm font-medium leading-normal">Date Range: Last 90 Days</p>
+<span class="material-symbols-outlined text-lg text-slate-500">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/80 px-4 py-2 ring-1 ring-inset ring-slate-200/80 backdrop-blur-sm">
+<p class="text-slate-700 text-sm font-medium leading-normal">Department: All</p>
+<span class="material-symbols-outlined text-lg text-slate-500">expand_more</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-white/80 px-4 py-2 ring-1 ring-inset ring-slate-200/80 backdrop-blur-sm">
+<p class="text-slate-700 text-sm font-medium leading-normal">Employee: All</p>
+<span class="material-symbols-outlined text-lg text-slate-500">expand_more</span>
+</button>
+</div>
+<!-- Buttons -->
+<div class="flex gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-white/80 text-slate-800 ring-1 ring-inset ring-slate-200/80 backdrop-blur-sm text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-50">
+<span class="material-symbols-outlined text-xl">download</span>
+<span>Export</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">
+<span class="material-symbols-outlined text-xl">add_circle</span>
+<span>Add KPI</span>
+</button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-hidden rounded-xl border border-slate-200/60 bg-white/70 backdrop-blur-lg @container">
+<table class="w-full">
+<thead>
+<tr class="border-b border-slate-200/80">
+<th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Employee Name</th>
+<th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">KPI Title</th>
+<th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Target</th>
+<th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Actual</th>
+<th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Variance</th>
+<th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200/60">
+<tr>
+<td class="h-[72px] px-4 py-2 text-slate-800 text-sm font-normal leading-normal">Olivia Martin</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">Customer Satisfaction (CSAT)</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">95%</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">98%</td>
+<td class="h-[72px] px-4 py-2 text-emerald-600 text-sm font-medium leading-normal">+3%</td>
+<td class="h-[72px] px-4 py-2">
+<span class="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">Exceeding</span>
+</td>
+</tr>
+<tr>
+<td class="h-[72px] px-4 py-2 text-slate-800 text-sm font-normal leading-normal">Jackson Lee</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">Average Handle Time (AHT)</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">5m</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">4.5m</td>
+<td class="h-[72px] px-4 py-2 text-emerald-600 text-sm font-medium leading-normal">-0.5m</td>
+<td class="h-[72px] px-4 py-2">
+<span class="inline-flex items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800">Meeting</span>
+</td>
+</tr>
+<tr>
+<td class="h-[72px] px-4 py-2 text-slate-800 text-sm font-normal leading-normal">Isabella Nguyen</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">Sales Quota Attainment</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">$50,000</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">$42,000</td>
+<td class="h-[72px] px-4 py-2 text-rose-600 text-sm font-medium leading-normal">-$8,000</td>
+<td class="h-[72px] px-4 py-2">
+<span class="inline-flex items-center rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-800">Needs Improvement</span>
+</td>
+</tr>
+<tr>
+<td class="h-[72px] px-4 py-2 text-slate-800 text-sm font-normal leading-normal">William Kim</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">Code Commits per Week</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">10</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">12</td>
+<td class="h-[72px] px-4 py-2 text-emerald-600 text-sm font-medium leading-normal">+2</td>
+<td class="h-[72px] px-4 py-2">
+<span class="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">Exceeding</span>
+</td>
+</tr>
+<tr>
+<td class="h-[72px] px-4 py-2 text-slate-800 text-sm font-normal leading-normal">Sophia Rodriguez</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">Support Tickets Resolved</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">120</td>
+<td class="h-[72px] px-4 py-2 text-slate-600 text-sm font-normal leading-normal">115</td>
+<td class="h-[72px] px-4 py-2 text-rose-600 text-sm font-medium leading-normal">-5</td>
+<td class="h-[72px] px-4 py-2">
+<span class="inline-flex items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-800">Meeting</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column -->
+<div class="col-span-1 flex flex-col gap-6">
+<!-- Stats Grid -->
+<div class="grid grid-cols-2 gap-6">
+<div class="rounded-xl border border-slate-200/60 bg-white/70 p-4 backdrop-blur-lg">
+<h3 class="text-sm font-medium text-slate-500">Company-wide Score</h3>
+<p class="mt-1 text-3xl font-bold text-slate-900">8.2<span class="text-lg font-medium text-slate-400">/10</span></p>
+</div>
+<div class="rounded-xl border border-slate-200/60 bg-white/70 p-4 backdrop-blur-lg">
+<h3 class="text-sm font-medium text-slate-500">KPIs On Target</h3>
+<p class="mt-1 text-3xl font-bold text-emerald-600">88%</p>
+</div>
+</div>
+<!-- Performance Chart -->
+<div class="rounded-xl border border-slate-200/60 bg-white/70 p-6 backdrop-blur-lg">
+<h3 class="font-semibold text-slate-800">Team Performance Trend (Q4)</h3>
+<p class="text-sm text-slate-500">Overall score evolution over the last 3 months.</p>
+<div class="mt-6 flex h-60 items-end gap-2">
+<!-- Chart Bars - Simplified Representation -->
+<div class="flex h-full flex-col items-center justify-end gap-2">
+<div class="w-8 rounded-t bg-primary" style="height: 70%;"></div>
+<span class="text-xs text-slate-500">Oct</span>
+</div>
+<div class="flex h-full flex-col items-center justify-end gap-2">
+<div class="w-8 rounded-t bg-primary" style="height: 60%;"></div>
+<span class="text-xs text-slate-500">Nov</span>
+</div>
+<div class="flex h-full flex-col items-center justify-end gap-2">
+<div class="w-8 rounded-t bg-primary/70" style="height: 85%;"></div>
+<span class="text-xs text-slate-500">Dec</span>
+</div>
+<div class="flex h-full flex-col items-center justify-end gap-2">
+<div class="w-8 rounded-t bg-primary/70" style="height: 90%;"></div>
+<span class="text-xs text-slate-500">Jan</span>
+</div>
+<div class="flex h-full flex-col items-center justify-end gap-2">
+<div class="w-8 rounded-t bg-primary" style="height: 75%;"></div>
+<span class="text-xs text-slate-500">Feb</span>
+</div>
+<div class="flex h-full flex-col items-center justify-end gap-2">
+<div class="w-8 rounded-t bg-primary" style="height: 95%;"></div>
+<span class="text-xs text-slate-500">Mar</span>
+</div>
+</div>
+</div>
+<div class="rounded-xl border border-slate-200/60 bg-white/70 p-4 backdrop-blur-lg">
+<h3 class="text-sm font-medium text-slate-500">Top Performer</h3>
+<div class="mt-2 flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Photo of William Kim" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCPR-RwTG2GKEP6wBNPpLLbOrNui9BCiYPP5TGtRcpie884GIsrH2Qh1mmvXJqI3cK2aTXw2WK1duZ7Ch0fYnhO7uDMw95F6TA1W-2Deu94SfGwh5_Wm55ldCOg7lNUyNVR1oiRF8CPzPduI7jwehghVPKaFJlSDhxkQHLidxM2XhUdP_poSfoGxK4afR250li4ttzixd_EwEU4Q5jqzOeSBdTjnw1syOBppZi3CNsHalj0lF7PmdFL_92ldEfAXTk1Ql_xPSKmXLY");'></div>
+<div>
+<p class="font-medium text-slate-800">William Kim</p>
+<p class="text-sm text-slate-500">Engineering</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

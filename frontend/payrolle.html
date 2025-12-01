@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Payroll Administration - Variant 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#07a5ed",
+              "background-light": "#f5f7f8",
+              "background-dark": "#0f1d23",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display bg-gradient-to-br from-slate-50 to-sky-50 dark:from-background-dark dark:to-[#0a141a]">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="flex h-screen min-h-screen flex-col justify-between p-4 bg-white/60 dark:bg-background-dark/60 backdrop-blur-lg border-r border-slate-200/80 dark:border-slate-800/80 sticky top-0">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-10" data-alt="SkyHR company logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7Zz7a8ceMz0WF8VlCy45K10WrBrGjs4rhxu6GnL0fzJnTdoFGzl8fT3qWi9NWtxCndlRaqodQxC9BnFPK3gqrrQL-wG9Wn69qKK9787EhWPoXmr265MwLPCP-Otl_1u5O-8cCOQR85JHCGUP_SU0sEcz_-GHu4ZdYraKO3a2EOiOIwluqoVeTDJmMyfNO8-t2adfh8L3z2GeIuXbHWqlbuJttikorFE7S0ulfiBEEd0zzlkraie9LPb5ObROEKk9ej7uu_uNio6Y");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-normal">SkyHR</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">HR &amp; Payroll</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium leading-normal">Employees</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payment</span>
+<p class="text-sm font-medium leading-normal">Payroll</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Request Time Off</span>
+</button>
+</aside>
+<div class="flex-1 flex flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200/80 dark:border-slate-800/80 px-8 py-3 sticky top-0 bg-white/60 dark:bg-background-dark/60 backdrop-blur-lg z-10">
+<label class="flex flex-col min-w-40 !h-10 max-w-sm">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 dark:text-slate-400 flex bg-slate-100 dark:bg-slate-800 items-center justify-center pl-3 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-slate-100 dark:bg-slate-800 h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search employees, reports..." value=""/>
+</div>
+</label>
+<div class="flex flex-1 justify-end items-center gap-4">
+<div class="flex gap-1">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-xl">help</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNhh2Oq1GGxmcWRpjKoHJoUrHeVSBX3Lby0yJMil4tt-LhcMAaas948Huvju-BnPmVI3e7ym_t4mKpL2lYZZCNaAWpcqFsVRQDkAg0rLMLeJC8E5yztTkMaKdeRU7eg1ihVlHxBVhrekPaGva5uxr5SliENUqupA9AcwZRrhOVbWWXOV5SUyGSDP9bHOIhyDrSCCJ4GOJ-INqo7ZJy_ZRq-e4XTqEMBBg992YIXVGqAU2XSP4RCgKAnME5tyFpQhTSWRRwkWi1u-o");'></div>
+</div>
+</header>
+<main class="flex-1 p-8">
+<div class="flex flex-col gap-6">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between items-center gap-3">
+<div class="flex flex-col gap-1">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Home / Payroll</p>
+<p class="text-slate-900 dark:text-white text-[28px] font-bold leading-tight">Payroll Administration</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-medium leading-normal hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors gap-2">
+<span class="material-symbols-outlined text-lg">upload_file</span>
+<span class="truncate">Export</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide hover:bg-primary/90 transition-colors gap-2">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+<span class="truncate">Run Payroll</span>
+</button>
+</div>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-1 flex-col gap-2 rounded-xl p-6 border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-background-dark/60">
+<p class="text-slate-600 dark:text-slate-300 text-base font-medium leading-normal">Total Payroll</p>
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight">$245,670.00</p>
+<p class="text-green-600 dark:text-green-500 text-sm font-medium leading-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-base">arrow_upward</span>
+<span>+2.5%</span>
+</p>
+</div>
+<div class="flex flex-1 flex-col gap-2 rounded-xl p-6 border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-background-dark/60">
+<p class="text-slate-600 dark:text-slate-300 text-base font-medium leading-normal">Net Pay</p>
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight">$198,330.50</p>
+<p class="text-green-600 dark:text-green-500 text-sm font-medium leading-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-base">arrow_upward</span>
+<span>+1.8%</span>
+</p>
+</div>
+<div class="flex flex-1 flex-col gap-2 rounded-xl p-6 border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-background-dark/60">
+<p class="text-slate-600 dark:text-slate-300 text-base font-medium leading-normal">Deductions</p>
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight">$47,339.50</p>
+<p class="text-red-600 dark:text-red-500 text-sm font-medium leading-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-base">arrow_downward</span>
+<span>-0.5%</span>
+</p>
+</div>
+</div>
+<!-- Payroll Table -->
+<div class="rounded-xl border border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-background-dark/60 backdrop-blur-lg overflow-hidden">
+<div class="flex flex-wrap justify-between items-center gap-4 p-4 border-b border-slate-200/80 dark:border-slate-800/80">
+<label class="flex flex-col min-w-40 !h-10 max-w-xs">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 dark:text-slate-400 flex bg-slate-100 dark:bg-slate-800 items-center justify-center pl-3 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-slate-100 dark:bg-slate-800 h-full placeholder:text-slate-500 dark:placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-sm font-normal leading-normal" placeholder="Filter by name..." value=""/>
+</div>
+</label>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 text-primary text-sm font-bold leading-normal hover:bg-primary/30 transition-colors gap-2">
+<span class="material-symbols-outlined text-lg">add</span>
+<span class="truncate">New Employee</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-800/50">
+<tr>
+<th class="px-6 py-3 font-medium" scope="col">Employee Name</th>
+<th class="px-6 py-3 font-medium" scope="col">Status</th>
+<th class="px-6 py-3 font-medium text-right" scope="col">Gross Pay</th>
+<th class="px-6 py-3 font-medium text-right" scope="col">Net Pay</th>
+<th class="px-6 py-3 font-medium" scope="col">Pay Date</th>
+<th class="px-6 py-3 font-medium" scope="col"><span class="sr-only">Actions</span></th>
+</tr>
+</thead>
+<tbody class="text-slate-800 dark:text-slate-200">
+<tr class="border-b border-slate-200/80 dark:border-slate-800/80 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-4 font-medium whitespace-nowrap flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Olivia Rhye avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnT3rGdrrYellPqclAh62O_3cgC9ZLkM_q3tSGFhkDfljwvcYVX5Dtu_yIOjmJ7QtC0DAujP22D3gM6DGV184LW4f_a-SG0lUYqes0d55Ggs4ANH_h-ruS1VO5aHW2htULuXJw7F9lAYDKGCf31k5NI15NVSkxrZdwsqcMOK9VXxL6PIUZ_uhukDeWqG0V4k6xyDe352uUx0i42j7G8ih9OIoqv18_svZuKMIyEr9OicO1IxOO3ZCQSTfD-y8R75yeTRRqjOfIdSU");'></div>
+                                                Olivia Rhye
+                                            </td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">Paid</span></td>
+<td class="px-6 py-4 text-right font-mono">$6,250.00</td>
+<td class="px-6 py-4 text-right font-mono font-medium">$4,980.75</td>
+<td class="px-6 py-4">Oct 28, 2023</td>
+<td class="px-6 py-4 text-right"><button class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button></td>
+</tr>
+<tr class="border-b border-slate-200/80 dark:border-slate-800/80 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-4 font-medium whitespace-nowrap flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Lana Steiner avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC5_2xrLyXb3aHWuq5vbGxm2xeLl-rvdhaWps_F-316OKa72ETWrlxmORp6cDVuMeO-EOLjDqIOCh81dNtCZwG7VBT-xX33vwSJBqjh2MY4vYJSyaMZRBawZWT7u8IzKEabNP-GoOG-zlzkuMcvJa5bTqyZ0777-0U-_lkmWvYTTUWU6cmF8Qij0DYky4sJMPrfnr-pDtcz1VuHy9iR6oViDpMposJMWafIN-IA___jj5TeCCWk7cADVtZfHv7FfGD3JLJAeWVPZYU");'></div>
+                                                Lana Steiner
+                                            </td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">Paid</span></td>
+<td class="px-6 py-4 text-right font-mono">$5,800.00</td>
+<td class="px-6 py-4 text-right font-mono font-medium">$4,650.20</td>
+<td class="px-6 py-4">Oct 28, 2023</td>
+<td class="px-6 py-4 text-right"><button class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button></td>
+</tr>
+<tr class="border-b border-slate-200/80 dark:border-slate-800/80 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-4 font-medium whitespace-nowrap flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Phoenix Baker avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD_4bqh2EnFXUZD4GOJPInQiK2c5sgvo4YREjxUKGKeM3YGKOD3uFxsYFEFIm8JYkqaCZQYo34t_5QElwg9rQoVYeIXPWmXuQQhNxw_QUALXtsYnEffx-04VYjxzbc0h-yiZa4Hl7dzMyUBH2fNbRXdTdMzgMbe12s4ZCDHAUGYIx7doU5giv9zavmWev1NfJspiSzW0mmrSV2fLJjczX9wBo_dtc-3R1nYQ9Cal0NJ1wIUliIWfrrTFkhn8HH0GFcV0l6xHUGM69E");'></div>
+                                                Phoenix Baker
+                                            </td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300">Pending</span></td>
+<td class="px-6 py-4 text-right font-mono">$7,100.00</td>
+<td class="px-6 py-4 text-right font-mono font-medium">$5,890.00</td>
+<td class="px-6 py-4">Oct 31, 2023</td>
+<td class="px-6 py-4 text-right"><button class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button></td>
+</tr>
+<tr class="border-b border-slate-200/80 dark:border-slate-800/80 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-4 font-medium whitespace-nowrap flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Candice Wu avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3mzVsG3VpAhuax8J5b12aRtdM4dWMwpv0563nTQ2IZIcq38uWu5jZ7nc2NhpcVm8gtXBwMNRmlndTm9nPkM0JyPawK35eeOP1tMS9GAwNpZlpxWJBK1Vjo1S1Y3sCG0hgleXRX8Q-g3jj5_CM6LGkX1Ulff-mZjrJdtBTnFXGzpIuUOcyuFpoSCzXGprFhBLmQwx22AqKl6QgN3KhGxi3-ZX7_rvccje5-VM8mdVdEqXxqASsEhYFMoGAjV90dISfpDTx0B05gCU");'></div>
+                                                Candice Wu
+                                            </td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300">Failed</span></td>
+<td class="px-6 py-4 text-right font-mono">$5,500.00</td>
+<td class="px-6 py-4 text-right font-mono font-medium">$0.00</td>
+<td class="px-6 py-4">Oct 28, 2023</td>
+<td class="px-6 py-4 text-right"><button class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button></td>
+</tr>
+<tr class="border-b border-slate-200/80 dark:border-slate-800/80 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+<td class="px-6 py-4 font-medium whitespace-nowrap flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Drew Cano avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAJDdzu6bMV1WR2VlzxhHmq4ci5XpjhCaXLpimVSLPJU3NW_VrtqjoznHjYGwo-bJ6t6fIZh3o3Hjle-VwV4MoE6giDJYLRt_966GPReuf5vW1QyfVeJtMyMt0sQlBtXriel2KYaXM7yn2LHCIG-tsn9pqdEcKn52rBiFMpQgecMeQ-A0u3P_Zp13dvRWkJt5C3NXmvZs9w9oAnPwAczbDOzIu834xJVlYWgXMDOQB9M03yqtpxo0RT7luY2d6RFdCKQBtimXNM86k");'></div>
+                                                Drew Cano
+                                            </td>
+<td class="px-6 py-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300">Paid</span></td>
+<td class="px-6 py-4 text-right font-mono">$8,000.00</td>
+<td class="px-6 py-4 text-right font-mono font-medium">$6,750.50</td>
+<td class="px-6 py-4">Oct 28, 2023</td>
+<td class="px-6 py-4 text-right"><button class="text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between p-4 text-sm text-slate-600 dark:text-slate-400">
+<span>Showing 1 to 5 of 25 results</span>
+<div class="inline-flex items-center gap-1">
+<button class="inline-flex justify-center items-center h-8 w-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800" disabled="">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="inline-flex justify-center items-center h-8 w-8 rounded bg-primary/10 text-primary font-bold">1</button>
+<button class="inline-flex justify-center items-center h-8 w-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800">2</button>
+<button class="inline-flex justify-center items-center h-8 w-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800">3</button>
+<span class="px-1">...</span>
+<button class="inline-flex justify-center items-center h-8 w-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800">5</button>
+<button class="inline-flex justify-center items-center h-8 w-8 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</body></html>

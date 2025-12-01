@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR User Profile (Light Mode)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+    .material-symbols-outlined.fill {
+        font-variation-settings: 'FILL' 1;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0ea5e9", // sky-500
+            "background-light": "#f0f9ff", // sky-50
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem", // New rounded-2xl
+            "xl": "2rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-white to-blue-50 font-display text-slate-900">
+<div class="relative min-h-screen w-full">
+<div class="relative flex h-full min-h-screen w-full flex-col">
+<header class="sticky top-0 z-10 flex items-center justify-between whitespace-nowrap border-b border-solid border-white/80 bg-white/70 px-10 py-3 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900">
+<div class="size-6 text-sky-500">
+<svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 text-lg font-bold leading-tight tracking-[-0.015em]">SkyHR</h2>
+</div>
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full">
+<div class="text-slate-400 flex border border-slate-200 bg-slate-50 items-center justify-center pl-4 rounded-l-full border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-slate-900 focus:outline-0 focus:ring-2 focus:ring-sky-500/50 border border-slate-200 bg-slate-50 h-full placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-slate-600 hover:text-sky-600 transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-slate-600 hover:text-sky-600 transition-colors text-sm font-medium leading-normal" href="#">My Team</a>
+<a class="text-slate-600 hover:text-sky-600 transition-colors text-sm font-medium leading-normal" href="#">Payroll</a>
+<a class="text-slate-600 hover:text-sky-600 transition-colors text-sm font-medium leading-normal" href="#">Reports</a>
+</div>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-slate-100 text-slate-500 hover:text-slate-800 hover:bg-slate-200/70 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-slate-100 text-slate-500 hover:text-slate-800 hover:bg-slate-200/70 transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-slate-200" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBH2LKX-wxbDTEhCbeKfhPTNLc3vodJ2C7s3S32QYNbv8u7d2O6WsHy2kVpvWun8Y8Sc7crlU2MFqKSOfcj-Wb8z54JCNn3LuQcI4CvMFZmey92QOCbZeufVfUc3N4M0rRdBPIuoMzp__hpq99CwivM0Cv8Jn4j6FdaxI5_TutAtUmn7CLl2GXnLpU-q9BOfaTa8CIRsjTiSDsa1Ww-Sr-h_WFPagnXQxGa-PjbZb-VpZROFjMePZE0JD4ov2tVefSnSuEKtHcaXhA");'></div>
+</div>
+</header>
+<main class="flex-grow p-6 lg:p-10">
+<div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8">
+<aside class="lg:col-span-4 xl:col-span-3">
+<div class="sticky top-28 flex h-fit flex-col p-6 rounded-2xl bg-white/80 border border-white shadow-sm">
+<div class="relative mb-6">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-32 h-32 mx-auto ring-4 ring-sky-100" data-alt="Profile avatar of Alexander Sky" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvG8jDSB9GsA9xWB-VuSSkljuy-hPmda7ugMimOze2v7QqGc7bvSjNlRuOAT1c1R6co-w9QspdPFPsj3rkDre5BmBBr6xQ0TZst5Zuldih7meZUrdpiJKEnaKu1PrZ3FyuMNO8NjHlxCiUmPrAPMW9cI8DQ570QUKHOUwjAjn5C40uv_E5zow7scgSUBKB6KHqIJ_acv13B7sf0KjJ_wQtscitQNmSfI9q1XqUVSyVqTM92z0c_G-r4meYVWIxvqJQoLVoxRODwJE");'></div>
+</div>
+<h1 class="text-slate-900 text-xl font-bold leading-tight text-center">Alexander Sky</h1>
+<div class="mt-2 mb-6 text-center">
+<span class="inline-block px-3 py-1 text-sm font-medium text-sky-600 bg-sky-50 rounded-full">Product Designer</span>
+</div>
+<div class="w-full flex flex-col gap-4 text-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sky-500 text-xl">mail</span>
+<p class="text-slate-600">alexander.sky@skyhr.co</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sky-500 text-xl">phone</span>
+<p class="text-slate-600">+1 (555) 123-4567</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-sky-500 text-xl">location_on</span>
+<p class="text-slate-600">San Francisco, CA</p>
+</div>
+</div>
+<button class="mt-8 w-full flex items-center justify-center rounded-full h-12 bg-sky-500 text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-sky-600 transition-colors">
+                  Edit Profile
+                </button>
+</div>
+</aside>
+<div class="lg:col-span-8 xl:col-span-9">
+<div class="flex flex-col gap-6 p-8 rounded-2xl bg-white/60 border border-white shadow-sm backdrop-blur-xl">
+<div class="flex flex-wrap justify-between gap-3">
+<div class="flex flex-col gap-2">
+<p class="text-slate-900 text-4xl font-black leading-tight tracking-[-0.033em]">My Profile</p>
+<p class="text-slate-500 text-base font-normal leading-normal">View and manage your personal and employment details.</p>
+</div>
+</div>
+<div>
+<div class="flex border-b border-slate-200 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-sky-500 text-sky-600 pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Overview</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 pb-[13px] pt-4 hover:text-sky-600 hover:border-b-sky-200 transition-colors" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Documents</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 pb-[13px] pt-4 hover:text-sky-600 hover:border-b-sky-200 transition-colors" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Settings</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-8">
+<div>
+<h2 class="text-slate-800 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4">Personal Information</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Employee ID</p>
+<p class="text-base font-medium text-slate-700">SKY-007</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Date of Birth</p>
+<p class="text-base font-medium text-slate-700">October 26, 1990</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Nationality</p>
+<p class="text-base font-medium text-slate-700">American</p>
+</div>
+</div>
+</div>
+<div>
+<h2 class="text-slate-800 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4">Job Information</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Join Date</p>
+<p class="text-base font-medium text-slate-700">January 15, 2021</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Department</p>
+<p class="text-base font-medium text-slate-700">Product &amp; Design</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Reporting Manager</p>
+<p class="text-base font-medium text-slate-700">Eleanor Vance</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Employment Status</p>
+<p class="text-base font-medium text-slate-700 flex items-center gap-2">
+<span class="size-2 rounded-full bg-green-500"></span>
+                        Active
+                      </p>
+</div>
+</div>
+</div>
+<div>
+<h2 class="text-slate-800 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-4">Emergency Contact</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Contact Name</p>
+<p class="text-base font-medium text-slate-700">Jane Doe</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Relationship</p>
+<p class="text-base font-medium text-slate-700">Spouse</p>
+</div>
+<div class="p-4 bg-slate-50/50 rounded-lg border border-slate-100">
+<p class="text-xs text-slate-500 mb-1">Phone Number</p>
+<p class="text-base font-medium text-slate-700">+1 (555) 987-6543</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>

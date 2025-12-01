@@ -1,13 +1,17 @@
 import { Router } from 'express';
 import payrollPdfController from './payroll.pdf.controller';
 import { authMiddleware } from '../../middlewares/authMiddleware';
-import { checkRole } from '../../middlewares/roleMiddleware'; // Assuming this already exists
+import { payrollSlipAccessMiddleware } from '../../middlewares/payrollSlipAccessMiddleware';
 
 const router = Router();
 
-// Payroll PDF can only be accessed by ADMIN and HR_ADMIN
-router.get('/:id/pdf', authMiddleware, checkRole(['SUPER_ADMIN', 'HR_ADMIN']), (req, res) =>
-  payrollPdfController.generatePayrollPdf(req, res)
+// This route is now protected by the new slip access middleware
+router.get(
+  '/:payrollId/slip',
+  authMiddleware,
+  payrollSlipAccessMiddleware, // <-- New middleware here
+  (req, res) => payrollPdfController.generatePayrollSlip(req, res)
 );
 
 export default router;
+

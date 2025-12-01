@@ -73,43 +73,6 @@ export class PayrollController {
     }
   }
 
-  async revertPayroll(req: Request, res: Response): Promise<void> {
-    try {
-      const { id } = req.params;
-      const updatedPayroll = await payrollService.revertPayroll(id);
-
-      res.status(200).json({
-        success: true,
-        message: 'Payroll reverted to pending',
-        data: updatedPayroll
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        if (error.message === 'Payroll not found') {
-          res.status(404).json({
-            success: false,
-            message: 'Payroll not found'
-          });
-        } else if (error.message === 'Payroll is already pending') {
-          res.status(400).json({
-            success: false,
-            message: 'Payroll is already pending'
-          });
-        } else {
-          res.status(400).json({
-            success: false,
-            message: error.message
-          });
-        }
-      } else {
-        res.status(500).json({
-          success: false,
-          message: 'An unexpected error occurred'
-        });
-      }
-    }
-  }
-
   async bulkGenerate(req: Request, res: Response): Promise<void> {
     try {
       const { period } = req.body;

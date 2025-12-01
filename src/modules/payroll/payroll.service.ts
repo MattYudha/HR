@@ -1,6 +1,8 @@
 import payrollRepositoryInstance, { PayrollRepository, PayrollListFilters } from './payroll.repository';
 import employeesRepository from '../employees/employees.repository';
 import { Payroll, Prisma } from '@prisma/client';
+import PDFDocument from 'pdfkit';
+import { format } from 'date-fns';
 
 interface PayrollListResponse {
   items: Payroll[];
@@ -252,6 +254,111 @@ export class PayrollService {
       generatedCount: result.count,
       generatedPayrolls: fetchedNewlyCreatedPayrolls
     };
+  }
+
+  async generatePayrollSlip(payrollId: string): Promise<PDFKit.PDFDocument> {
+    const payroll = await this.getPayrollById(payrollId);
+    if (!payroll) {
+      // This case is already handled by getPayrollById, but for safety:
+      throw new Error('Payroll not found');
+    }
+
+    const doc = new PDFDocument({ size: 'A4', margin: 50 });
+
+    // --- HELPER FUNCTIONS ---
+    const formatDate = (date: Date | null) => {
+      if (!date) return 'N/A';
+      return format(new Date(date), 'dd MMMM yyyy');
+    };
+
+    const formatCurrency = (amount: Prisma.Decimal | number) => {
+      const num = typeof amount === 'number' ? amount : amount.toNumber();
+      return `Rp ${num.toLocaleString('id-ID', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })}`;
+    };
+
+    // --- HEADER ---
+    doc
+      .fontSize(20)
+      .font('Helvetica-Bold')
+      .text('Slip Gaji - Perusahaan', { align: 'center' });
+    doc.moveDown(2);
+
+    // --- EMPLOYEE DETAILS ---
+    doc.fontSize(12).font('Helvetica-Bold');
+    const col1X = 50;
+    const col2X = 150;
+    const startY = doc.y;
+
+    doc.text('Nama Karyawan', col1X, startY);
+    doc.text(':', col2X, startY);
+    doc.font('Helvetica').text(payroll.employee?.fullName || 'N/A', col2X + 15, startY);
+
+    doc.font('Helvetica-Bold').text('Jabatan', col1X, startY + 20);
+    doc.text(':', col2X, startY + 20);
+    doc.font('Helvetica').text(payroll.employee?.position || 'N/A', col2X + 15, startY + 20);
+
+    doc.font('Helvetica-Bold').text('Periode', col1X, startY + 40);
+    doc.text(':', col2X, startY + 40);
+    doc.font('Helvetica').text(payroll.period, col2X + 15, startY + 40);
+
+    doc.moveDown(4);
+
+    // --- EARNINGS & DEDUCTIONS ---
+    const earningsX = 50;
+    const valuesX = 250;
+    let currentY = doc.y;
+
+    doc.fontSize(14).font('Helvetica-Bold').text('Pendapatan', earningsX, currentY);
+    doc.moveDown();
+    currentY = doc.y;
+
+    doc.fontSize(12).font('Helvetica');
+    doc.text('Gaji Pokok', earningsX, currentY);
+    doc.text(formatCurrency(payroll.baseSalary), valuesX, currentY, { align: 'right' });
+    currentY += 20;
+
+    doc.text('Tunjangan', earningsX, currentY);
+    doc.text(formatCurrency(payroll.allowances), valuesX, currentY, { align: 'right' });
+    currentY += 30;
+
+    doc.fontSize(14).font('Helvetica-Bold').text('Potongan', earningsX, currentY);
+    doc.moveDown();
+    currentY = doc.y;
+
+    doc.fontSize(12).font('Helvetica');
+    doc.text('Potongan Lainnya', earningsX, currentY);
+    doc.text(formatCurrency(payroll.deductions), valuesX, currentY, { align: 'right' });
+    currentY += 20;
+
+    doc.text('PPH 21', earningsX, currentY);
+    doc.text(formatCurrency(payroll.pph21), valuesX, currentY, { align: 'right' });
+    currentY += 30;
+
+    // --- SUMMARY ---
+    doc.strokeColor('#aaaaaa').lineWidth(1).moveTo(50, currentY).lineTo(550, currentY).stroke();
+    currentY += 15;
+
+    doc.fontSize(14).font('Helvetica-Bold');
+    doc.text('Take Home Pay', earningsX, currentY);
+    doc.text(formatCurrency(payroll.takeHomePay), valuesX, currentY, { align: 'right' });
+    currentY += 30;
+
+    // --- STATUS ---
+    doc.fontSize(12).font('Helvetica-Bold');
+    doc.text('Status', earningsX, currentY);
+    if (payroll.status === 'PAID') {
+      doc
+        .font('Helvetica')
+        .text(`LUNAS (Dibayarkan pada ${formatDate(payroll.paidDate)})`, valuesX, currentY, { align: 'right' });
+    } else {
+      doc.font('Helvetica').text('PENDING', valuesX, currentY, { align: 'right' });
+    }
+
+    doc.end();
+    return doc;
   }
 }
 

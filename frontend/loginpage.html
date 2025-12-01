@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Login Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0da2e7",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass-card {
+            background: rgba(16, 28, 34, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .gradient-button {
+            background-image: linear-gradient(to right, #87CEEB, #E6E6FA);
+            transition: all 0.3s ease;
+        }
+        .gradient-button:hover {
+            box-shadow: 0 0 20px 5px rgba(135, 206, 235, 0.5);
+        }
+        .input-field {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .input-field {
+            background-color: rgba(16, 28, 34, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .input-field:focus-within {
+             box-shadow: 0 0 10px 2px rgba(135, 206, 235, 0.4);
+        }
+    </style>
+</head>
+<body class="font-display">
+<div class="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#F0F9FF] to-white dark:from-[#101c22] dark:to-[#0d1519] group/design-root p-4">
+<div class="absolute inset-0">
+<div class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-gradient-to-br from-[#87CEEB]/50 to-[#E6E6FA]/50 blur-3xl opacity-50 dark:opacity-30"></div>
+<div class="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-gradient-to-tl from-[#E6E6FA]/50 to-[#87CEEB]/50 blur-3xl opacity-50 dark:opacity-30"></div>
+</div>
+<div class="glass-card z-10 w-full max-w-md rounded-xl p-8 md:p-12 shadow-2xl shadow-slate-300/10">
+<div class="flex flex-col items-center">
+<svg class="h-20 w-20 mb-4 text-[#2F4F4F] dark:text-slate-200" fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 0C77.6142 0 100 22.3858 100 50C100 69.33 88.0869 85.9382 72.0157 93.9133C67.8931 77.403 56.4173 63.8583 41.5748 57.3228C48.1102 42.4803 57.3228 29.5276 68.0315 19.6063C59.2913 14.8031 49.3701 12.4016 38.9764 12.4016C17.4803 12.4016 0 30.6457 0 52.1417C0 59.2913 2.3622 66.4409 6.29921 72.7559C14.8031 60.5512 26.2795 50.6299 40.0394 44.8819C33.5039 59.7244 24.2913 72.6772 15.0394 82.5984C25.5906 93.3071 37.0669 99.252 50 100C22.3858 100 0 77.6142 0 50C0 22.3858 22.3858 0 50 0Z" fill="url(#paint0_linear_1_2)"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_1_2" x1="0" x2="100" y1="50" y2="50">
+<stop stop-color="#87CEEB"></stop>
+<stop offset="1" stop-color="#E6E6FA"></stop>
+</lineargradient>
+</defs>
+</svg>
+<h1 class="text-3xl font-bold tracking-tight text-[#2F4F4F] dark:text-white pb-1">Welcome Back!</h1>
+<p class="text-base text-[#2F4F4F]/70 dark:text-slate-300/70 pb-8">Sign in to manage your team</p>
+</div>
+<form class="space-y-6">
+<div>
+<label class="flex flex-col flex-1">
+<p class="text-[#2F4F4F] dark:text-slate-200 text-sm font-medium pb-2">Email Address</p>
+<div class="input-field flex w-full flex-1 items-stretch rounded-lg transition-shadow duration-300">
+<div class="text-[#2F4F4F]/60 dark:text-slate-300/60 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined" style="font-size: 20px;">mail</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#2F4F4F] dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-transparent h-12 placeholder:text-[#2F4F4F]/40 dark:placeholder:text-slate-300/40 p-3 pl-2 text-base font-normal leading-normal" placeholder="you@company.com" type="email" value=""/>
+</div>
+</label>
+</div>
+<div>
+<label class="flex flex-col flex-1">
+<p class="text-[#2F4F4F] dark:text-slate-200 text-sm font-medium pb-2">Password</p>
+<div class="input-field flex w-full flex-1 items-stretch rounded-lg transition-shadow duration-300">
+<div class="text-[#2F4F4F]/60 dark:text-slate-300/60 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#2F4F4F] dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-transparent h-12 placeholder:text-[#2F4F4F]/40 dark:placeholder:text-slate-300/40 p-3 pl-2 text-base font-normal leading-normal" placeholder="Enter your password" type="password" value=""/>
+<button aria-label="Toggle password visibility" class="text-[#2F4F4F]/60 dark:text-slate-300/60 flex items-center justify-center pr-4" type="button">
+<span class="material-symbols-outlined" style="font-size: 20px;">visibility_off</span>
+</button>
+</div>
+</label>
+</div>
+<div class="text-right">
+<a class="text-sm font-medium text-[#2F4F4F]/80 dark:text-slate-300/80 hover:text-[#2F4F4F] dark:hover:text-slate-200 underline" href="#">Forgot Password?</a>
+</div>
+<div>
+<button class="gradient-button flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 text-base font-bold text-[#2F4F4F] tracking-wide mt-2">
+<span class="truncate">Sign In</span>
+</button>
+</div>
+</form>
+<div class="mt-8 text-center">
+<p class="text-sm text-[#2F4F4F]/70 dark:text-slate-300/70">
+                    Don't have an account? <a class="font-bold text-[#2F4F4F] dark:text-slate-200 underline" href="#">Sign Up</a>
+</p>
+</div>
+</div>
+</div>
+</body></html>

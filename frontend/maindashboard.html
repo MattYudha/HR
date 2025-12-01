@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Main Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0da2e7",
+              "background-light": "#f5f7f8",
+              "background-dark": "#101c22",
+              "accent-blue": "#3B82F6",
+              "accent-green": "#22C55E",
+              "accent-orange": "#F97316",
+              "accent-purple": "#8B5CF6",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "full": "9999px"},
+            boxShadow: {
+              'soft': '0 10px 30px -15px rgba(0, 0, 0, 0.1)',
+            },
+            backdropBlur: {
+              'xl': '24px',
+            },
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display bg-[#F0F9FF] dark:bg-background-dark text-[#111618] dark:text-gray-200">
+<div class="relative flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="sticky top-0 h-screen w-64 bg-white/60 dark:bg-background-dark/60 backdrop-blur-xl border-r border-white/30 dark:border-gray-700/50 p-6 flex flex-col flex-shrink-0 z-20">
+<div class="flex items-center gap-3 mb-10">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="SkyHR company logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqGgPiiywr7Mal68QWquunsiCfCC58CNIgXKzOiqBLObxstC9vRlJ9JASO49DHDJ3_flKj-_ejIBUpOT49Tnm9SrFt5E7fk1rbkY1sDulIWBa09rLKHIFTVNZqZDW2fPcp9gnHu4bnMxcZKqSuO7cChJVDeYZg0vtzmfu5CJJbtwP8nRuTqn0SNbd75JJ3lo7qwEezCPx9foGmwfgYkJoQuH499MA0-0FlNyYJt4uwdaFWUMpswSO60siJtynZ7Jc-JHNgv003IAg");'></div>
+<h1 class="text-[#111618] dark:text-white text-xl font-bold">SkyHR</h1>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full bg-primary/20 text-primary dark:bg-primary/30" href="#">
+<span class="material-symbols-outlined !text-primary">dashboard</span>
+<p class="text-sm font-semibold">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-gray-200/50 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">group</span>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Employees</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-gray-200/50 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">payments</span>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Payroll</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-gray-200/50 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">check_circle</span>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Approvals</p>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-gray-200/50 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">bar_chart</span>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Reports</p>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full hover:bg-gray-200/50 dark:hover:bg-white/10" href="#">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-400">settings</span>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Settings</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col">
+<!-- ToolBar / Header -->
+<header class="sticky top-0 z-10 bg-transparent backdrop-blur-xl px-8 py-4">
+<div class="flex justify-between items-center w-full">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2">
+<a class="text-[#607d8a] dark:text-gray-400 text-sm font-medium" href="#">Dashboard</a>
+<span class="text-[#607d8a] dark:text-gray-500 text-sm">/</span>
+<span class="text-[#111618] dark:text-white text-sm font-medium">Home</span>
+</div>
+<!-- Toolbar Actions -->
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-500/10">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-[#F0F9FF] dark:border-background-dark"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCodmLLNFK9PtW_M_-cuCvrfPwjdHeEJ4X5oN6NER2uaNC8Z-O5EaqBHFAk9hksHoEQGaKJRErJqv3JCzT75AxWmynHsgfEnLQFSzuv8syD0ZhRxXVJcgo50J99vn47GxDGV1MzHEMHAdtjAVimPe6zfl56_4fenvRZxm0Xju411lO1gvz9uyGPa4XNjw5EJwkWBOUuStUyoCisZIQXNswB_42D1XlnmYyYuaQ-Kp97pN4JH8dVezBxfjlmgSofmlcFyuyDH7qxVyk");'></div>
+<div class="text-left hidden sm:block">
+<p class="text-sm font-semibold text-[#111618] dark:text-white">Alex Doe</p>
+<p class="text-xs text-gray-500 dark:text-gray-400">Admin</p>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 p-8">
+<!-- Stats -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Stat Card 1 -->
+<div class="relative overflow-hidden flex flex-col gap-2 rounded-lg p-6 bg-white/50 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-soft">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-base font-medium text-gray-600 dark:text-gray-300">Total Employees</p>
+<p class="text-[#111618] dark:text-white tracking-tight text-4xl font-bold">1,204</p>
+</div>
+<div class="p-3 rounded-lg bg-accent-blue/20">
+<img alt="3D liquid glass icon of people" class="size-8 rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1BhaVJfUWMWp-jP2CHmPOD7CT3NpY432V8PVIthOquxYMuF6916j9FjdAeo-D_9JGRejfnC17HXqJ1BykyujQesPQVKoN-BLRBNnfkbfpyLwl2SJPcmjf8sae7_iagAUzvzr4oKv8w-tgGg7jfGUSKjkRNg5PXcIUnTJTcD6RhGr6BVrG62FBoOY_KzykL7ngU5OLJxCz-yC7vVkQXMzV6bu0Oh-p2Qz5YdGyd0f498jrnTuW8nV_-gXFfyq6dvB4AEn8HrZGKkk"/>
+</div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="relative overflow-hidden flex flex-col gap-2 rounded-lg p-6 bg-white/50 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-soft">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-base font-medium text-gray-600 dark:text-gray-300">Payroll Paid</p>
+<p class="text-[#111618] dark:text-white tracking-tight text-4xl font-bold">$250k</p>
+</div>
+<div class="p-3 rounded-lg bg-accent-green/20">
+<img alt="3D liquid glass icon of money" class="size-8 rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbbBPVz_09plxKGy-pluW4Jr9Dkfg59ZqghMyB4mUfjbtAjekJw19U_g7eOzKk2JoYh-vZ24Bqf5uP5ts-k8I63I5j3S_wPvbBLBCZTSqY7H0GrCKrmQ1z6TsEg8P3-fMrScWGllAjPUQBBWmDIL-PbYc4wojq9LieX-2bcVDeC12or5u58ZYcqK5DaaZI5wSXUkVLmEgnXe8TS8le2s7lybEmxLsKw6nMh6vyv_yj4LnedoEZvfaF20bugQuGgdLxK7bTA8sLcjc"/>
+</div>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="relative overflow-hidden flex flex-col gap-2 rounded-lg p-6 bg-white/50 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-soft">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-base font-medium text-gray-600 dark:text-gray-300">Pending Approvals</p>
+<p class="text-[#111618] dark:text-white tracking-tight text-4xl font-bold">12</p>
+</div>
+<div class="p-3 rounded-lg bg-accent-orange/20">
+<img alt="3D liquid glass icon of an hourglass" class="size-8 rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpBz-B5B0ZWgObwr-q9ySBGQELrAOkTMIwqWGqM3GKWGTJnWtYd6NCXbhoi4LeYxc_1vNzvRuwws6N4mh-KltaH9PeR5Pl6teOwrXQPmG0AlQwHijwVAkqFirPkbWFwzGBn_aswof6u9t0EKfEsJoNLB21HodGXXXskZq7GuKMU2lVz18xARNCVtb3mlPJWVY8s0BmoBG-nonXFz0CEuRLFMBUfr-pXbvlOlzjRb2trl2bvHGwEu96iFyaheLLEPPV2ZGdCUJbW2o"/>
+</div>
+</div>
+</div>
+<!-- Stat Card 4 -->
+<div class="relative overflow-hidden flex flex-col gap-2 rounded-lg p-6 bg-white/50 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-soft">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<p class="text-base font-medium text-gray-600 dark:text-gray-300">Attendance Today</p>
+<p class="text-[#111618] dark:text-white tracking-tight text-4xl font-bold">95%</p>
+</div>
+<div class="p-3 rounded-lg bg-accent-purple/20">
+<img alt="3D liquid glass icon of a calendar" class="size-8 rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMXh7FLvk4h7bJuVYpxjAfcvGppWrOokLbJh-ealpXemp1rmFzkLWinP4XlOmX1HZDpBBxQ8ot1LmOf_R7Tg4K-Tx6bIE8etRK1Cx44SPF0c6fz8jxjjriwTRDQQ1QNJO2YR60x7qCUNE6QGWwrefpX2K2GHAq4UC9fW7wFTwz-D3kIWQdFG09OKY1JS4VRN6njdN6mSNBvdSdpW_paMrLy6SFokgyV71Z8ki9DSiiY31OkfdFVU_U06Nz8Yrqea3gP_vaufB4gtE"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Charts -->
+<div class="flex flex-wrap gap-6">
+<div class="flex min-w-72 flex-1 flex-col gap-4 rounded-lg p-6 bg-white/50 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/20 shadow-soft">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-[#111618] dark:text-white text-lg font-semibold">Payroll Trends</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm">Last 12 Months</p>
+</div>
+<div class="flex items-center gap-1">
+<p class="text-accent-green text-base font-medium">+5.2%</p>
+</div>
+</div>
+<div class="flex min-h-[250px] flex-1 flex-col gap-8 py-4">
+<svg fill="none" height="100%" preserveaspectratio="none" viewbox="-3 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H0V109Z" fill="url(#paint0_linear_chart)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#3B82F6" stroke-linecap="round" stroke-width="3"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_chart" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#3B82F6" stop-opacity="0.4"></stop>
+<stop offset="1" stop-color="#3B82F6" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<div class="flex justify-around -mt-8">
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Jan</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Feb</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Mar</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Apr</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">May</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Jun</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Jul</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Aug</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Sep</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Oct</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Nov</p>
+<p class="text-[#607d8a] dark:text-gray-400 text-xs font-bold tracking-wider">Dec</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
