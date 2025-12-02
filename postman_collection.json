@@ -1,0 +1,836 @@
+{
+	"info": {
+		"_postman_id": "b3f8c8d8-2b8e-4f1a-9c7d-8e5f1b2c3d4e",
+		"name": "HR & Payroll API Project",
+		"description": "Dokumentasi API lengkap untuk sistem HR & Payroll meliputi modul Auth, Employee, Attendance, Approval, Payroll, KPI, dan Dashboard.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password123\",\n    \"roleId\": \"REPLACE_WITH_VALID_ROLE_UUID\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Mendaftarkan user baru. Diperlukan Role ID yang valid dari database."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.success && jsonData.data.token) {",
+									"    pm.collectionVariables.set(\"token\", jsonData.data.token);",
+									"    console.log(\"Token updated successfully\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login user. Script test otomatis akan menyimpan Token ke variabel koleksi."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Users",
+			"item": [
+				{
+					"name": "Get My Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Employees",
+			"item": [
+				{
+					"name": "Get My Profile (Employee)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/employees/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/employees",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"USER_UUID_HERE\",\n    \"fullName\": \"John Doe\",\n    \"phone\": \"08123456789\",\n    \"address\": \"Jakarta\",\n    \"position\": \"Software Engineer\",\n    \"department\": \"IT\",\n    \"baseSalary\": 10000000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/employees",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN. Menghubungkan data user dengan data karyawan."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Attendance",
+			"item": [
+				{
+					"name": "Check In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/attendance/check-in",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"check-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Out",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/attendance/check-out",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"check-out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Attendance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/attendance/me?from=2023-01-01&to=2023-12-31",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"attendance",
+								"me"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2023-01-01"
+								},
+								{
+									"key": "to",
+									"value": "2023-12-31"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Approval",
+			"item": [
+				{
+					"name": "Create Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"LEAVE\",\n    \"title\": \"Cuti Tahunan\",\n    \"description\": \"Liburan akhir tahun\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/approval/request",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"approval",
+								"request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalId\": \"APPROVAL_UUID_HERE\",\n    \"notes\": \"Disetujui, selamat berlibur\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/approval/approve",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"approval",
+								"approve"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Approvals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/approval/my-approvals",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"approval",
+								"my-approvals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Approval Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/approval/detail/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"approval",
+								"detail",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "APPROVAL_UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. Payroll",
+			"item": [
+				{
+					"name": "Bulk Generate Payroll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"period\": \"2023-12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payroll/bulk-generate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								"bulk-generate"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN. Membuat data payroll untuk semua karyawan yang belum memiliki payroll di periode tersebut."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Payroll (Manual)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employeeId\": \"EMPLOYEE_UUID\",\n    \"period\": \"2023-12\",\n    \"baseSalary\": 10000000,\n    \"allowances\": 500000,\n    \"deductions\": 200000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payroll",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payroll List (Filter)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll?page=1&limit=10&status=PENDING&period=2023-12",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "PENDING",
+									"description": "PENDING / PAID"
+								},
+								{
+									"key": "period",
+									"value": "2023-12"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "employeeId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN (Full Access). Employee (Own Access)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Payrolls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payroll Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "PAYROLL_UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Paid",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/:id/pay",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								":id",
+								"pay"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "PAYROLL_UUID"
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Revert (Unpay)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/:id/unpay",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								":id",
+								"unpay"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "PAYROLL_UUID"
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payroll History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/history/:employeeId?sort=newest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								"history",
+								":employeeId"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "newest"
+								},
+								{
+									"key": "period",
+									"value": "2023-12",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "employeeId",
+									"value": "EMPLOYEE_UUID"
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Monthly Recap",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/recap?period=2023-12",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								"recap"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "2023-12"
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Export Payroll (CSV/XLSX)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/export?period=2023-12&format=xlsx",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								"export"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "2023-12"
+								},
+								{
+									"key": "format",
+									"value": "xlsx"
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN, EMPLOYEE"
+					},
+					"response": []
+				},
+				{
+					"name": "Download PDF Slip",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/payroll/:id/pdf",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payroll",
+								":id",
+								"pdf"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "PAYROLL_UUID"
+								}
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "7. KPI",
+			"item": [
+				{
+					"name": "Create KPI",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employeeId\": \"EMPLOYEE_UUID\",\n    \"period\": \"2023-12\",\n    \"score\": 85,\n    \"category\": \"PERFORMANCE\",\n    \"notes\": \"Kinerja sangat baik\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/kpi",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"kpi"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				},
+				{
+					"name": "Get My KPIs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/kpi/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"kpi",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All KPIs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/kpi",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"kpi"
+							]
+						},
+						"description": "Role Required: HR_ADMIN, SUPER_ADMIN"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "8. Dashboard",
+			"item": [
+				{
+					"name": "Get Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dashboard/summary",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dashboard",
+								"summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Payroll Trends",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dashboard/payroll-trend",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dashboard",
+								"payroll-trend"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
