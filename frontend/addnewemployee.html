@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Employee Management (Add Mode) - Variant 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#07a5ed",
+              "background-light": "#f5f7f8",
+              "background-dark": "#0f1d23",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+</head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="flex h-full w-full">
+<!-- SideNavBar -->
+<aside class="flex h-screen min-h-[700px] w-64 flex-col justify-between border-r border-slate-200/80 bg-white/50 p-4 backdrop-blur-lg dark:border-slate-800/80 dark:bg-background-dark/50">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-3">
+<div class="flex size-10 items-center justify-center rounded-lg bg-primary/20 text-primary">
+<svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path></svg>
+</div>
+<div class="flex flex-col">
+<h1 class="text-base font-medium leading-normal text-slate-800 dark:text-slate-200">SkyHR</h1>
+<p class="text-sm font-normal leading-normal text-slate-500 dark:text-slate-400">HR &amp; Payroll</p>
+</div>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<div class="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</div>
+<div class="flex cursor-pointer items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-primary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">group</span>
+<p class="text-sm font-medium leading-normal">Employees</p>
+</div>
+<div class="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-2xl">payments</span>
+<p class="text-sm font-medium leading-normal">Payroll</p>
+</div>
+<div class="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</div>
+<div class="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex h-screen flex-1 flex-col overflow-y-auto">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-10 flex items-center justify-between whitespace-nowrap border-b border-slate-200/80 bg-white/50 px-8 py-3 backdrop-blur-lg dark:border-slate-800/80 dark:bg-background-dark/50">
+<div class="flex items-center gap-8">
+<div class="hidden items-center gap-9 lg:flex">
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="#">Dashboard</a>
+<a class="text-sm font-medium text-primary" href="#">Employees</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="#">Payroll</a>
+<a class="text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="#">Reports</a>
+</div>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4">
+<label class="relative flex hidden h-10 w-full max-w-xs items-center md:flex">
+<span class="material-symbols-outlined absolute left-3 text-slate-400">search</span>
+<input class="form-input h-full w-full rounded-lg border-slate-300/80 bg-white/80 pl-10 text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-0 dark:border-slate-700/80 dark:bg-slate-800/80 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="Search..." value=""/>
+</label>
+<div class="flex items-center gap-2">
+<button class="flex h-10 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-sm transition-all hover:bg-primary/90">
+<span class="truncate">Add Employee</span>
+</button>
+<button class="flex h-10 min-w-0 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-slate-100 px-2.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex h-10 min-w-0 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-slate-100 px-2.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-cover bg-center bg-no-repeat" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDgIRQeeC-W09OQgXgRhUkvkjZ8eh4t97Fmm9eg05YYN3hfNcUmk58Q-0hYjirGnIdi-hwRKKZnXtDc2AEbIDmAwjWRsAtTPaV4mjagG5UYRZWrop3hD8t8NEQyCatWB74E9qe7ghgqTWrwJhm7RHivqr3SeaSkIEUlTP2i_wWwCeizuAjfEQJ7XUFwdJz6gD91st6Vacwa-tNifpV66cvfzuJFsw8zwONI6NRoC4FcyFGkr-ambIdnHUbMiojoQXmWI9BHb5YnCUg");'></div>
+</div>
+</header>
+<!-- Dimmed Background Content -->
+<div class="flex flex-1 flex-col p-8 opacity-40 blur-sm">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-col gap-1">
+<p class="text-4xl font-black leading-tight tracking-[-0.033em] text-slate-900 dark:text-white">Employees</p>
+<p class="text-base font-normal leading-normal text-slate-500 dark:text-slate-400">Manage all employees in your organization.</p>
+</div>
+</div>
+<div class="mt-8 rounded-xl border border-slate-200/80 bg-white dark:border-slate-800/80 dark:bg-slate-900">
+<div class="h-96"></div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="absolute inset-0 z-40 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+<!-- Add New Employee Modal -->
+<div class="relative m-4 w-full max-w-4xl rounded-xl border border-slate-200/50 bg-white/80 shadow-2xl backdrop-blur-xl dark:border-slate-800/50 dark:bg-background-dark/80">
+<button class="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-500/10 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+<!-- Modal Header -->
+<div class="flex flex-col gap-1 border-b border-slate-200/80 p-6 dark:border-slate-800/80">
+<p class="text-xl font-bold leading-tight tracking-[-0.015em] text-slate-800 dark:text-slate-100">Add New Employee</p>
+<p class="text-sm font-normal leading-normal text-slate-500 dark:text-slate-400">Fill in the details below to add a new employee to the system.</p>
+</div>
+<!-- Modal Body - Form -->
+<div class="grid grid-cols-1 gap-x-8 gap-y-6 p-6 md:grid-cols-2">
+<!-- Left Column -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Profile Picture</p>
+<div class="flex flex-col items-center gap-4 rounded-lg border-2 border-dashed border-slate-300 px-6 py-10 dark:border-slate-700">
+<div class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+<span class="material-symbols-outlined text-3xl">cloud_upload</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<p class="text-sm font-medium leading-normal text-slate-800 dark:text-slate-200">Drag &amp; drop or <span class="font-bold text-primary">click to upload</span></p>
+<p class="text-xs font-normal leading-normal text-slate-500 dark:text-slate-400">PNG, JPG, GIF up to 10MB</p>
+</div>
+</div>
+</div>
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">person</span>
+<input class="form-input h-12 w-full min-w-0 flex-1 rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="e.g. John Doe" value=""/>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">mail</span>
+<input class="form-input h-12 w-full min-w-0 flex-1 rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="e.g. john.doe@example.com" value=""/>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Phone Number</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">phone</span>
+<input class="form-input h-12 w-full min-w-0 flex-1 rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="e.g. +1 234 567 890" value=""/>
+</div>
+</label>
+</div>
+<!-- Right Column -->
+<div class="flex flex-col gap-6">
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Employee ID</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">badge</span>
+<input class="form-input h-12 w-full min-w-0 flex-1 rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="e.g. EMP-00123" value=""/>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Department</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">workspaces</span>
+<select class="form-select h-12 w-full min-w-0 flex-1 appearance-none rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500">
+<option>Select department</option>
+<option>Engineering</option>
+<option>Marketing</option>
+<option>Sales</option>
+<option>Human Resources</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-3.5 text-slate-400 dark:text-slate-500">expand_more</span>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Job Title</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">work</span>
+<input class="form-input h-12 w-full min-w-0 flex-1 rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="e.g. Software Engineer" value=""/>
+</div>
+</label>
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium text-slate-700 dark:text-slate-300">Hire Date</p>
+<div class="relative flex w-full items-center">
+<span class="material-symbols-outlined pointer-events-none absolute left-3.5 text-slate-400 dark:text-slate-500">calendar_month</span>
+<input class="form-input h-12 w-full min-w-0 flex-1 rounded-lg border border-slate-300 bg-white pl-10 pr-4 text-sm text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:placeholder:text-slate-500" placeholder="Select hire date" type="date" value=""/>
+</div>
+</label>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="flex items-center justify-end gap-3 border-t border-slate-200/80 p-6 dark:border-slate-800/80">
+<button class="flex h-10 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-200 px-4 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600">
+<span class="truncate">Cancel</span>
+</button>
+<button class="flex h-10 min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-primary px-4 text-sm font-bold text-white shadow-sm transition-colors hover:bg-primary/90">
+<span class="truncate">Add Employee</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>
