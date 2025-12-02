@@ -270,6 +270,76 @@ System Stability & Quality| Aspek        | Nilai | Keterangan                   
 | Integration  | 100%  | SIAP konsumsi frontend               |
 ```
 
+## ⚙️ Installation & Setup Guide
+
+Ikuti langkah-langkah berikut untuk menjalankan sistem HR Payroll ini di lingkungan lokal Anda.
+
+### 1. Prerequisites (Prasyarat)
+Pastikan Anda telah menginstal:
+* **Node.js** (v18.x atau terbaru)
+* **PostgreSQL** (Database)
+* **npm** atau **yarn**
+
+### 2. Clone & Install Dependencies
+```
+```bash
+# Clone repository ini
+git clone [https://github.com/username/hr-payroll-system.git](https://github.com/username/hr-payroll-system.git)
+```
+
+# Masuk ke direktori project
+```
+cd hr-payroll-system
+```
+
+# Install dependencies
+```
+npm install
+```
+Environment Configuration
+
+Duplikat file .env.example menjadi .env dan sesuaikan dengan konfigurasi lokal anda:
+```
+cp .env.example .env
+```
+
+Database Setup (Prisma ORM)
+Jalankan migrasi untuk membuat tabel di database PostgreSQL Anda:
+```
+# Generate Prisma Client
+npx prisma generate
+```
+
+# Push schema ke database (Migrasi)
+```
+npm run db:migrate
+# atau: npx prisma db push
+```
+Running the Application
+```
+npm run dev
+```
+
+
+Mode Production (Build & Start):
+```
+npm run build
+npm start
+```
+🧪 Testing Account (Seeded Data)
+Jika database telah di-seed, Anda dapat menggunakan akun berikut untuk pengujian:
+
+Role Admin/HR: admin@skyhr.com / password123
+
+Role Employee: employee@skyhr.com / password123
+
+
+### Tips Tambahan:
+Jika Anda ingin README terlihat lebih lengkap lagi, Anda bisa menambahkan satu file `POSTMAN_COLLECTION.json` di dalam repo Anda, lalu tambahkan kalimat ini di bawah tabel API Reference:
+
+> 📥 **Download Postman Collection:** [Klik di sini](./postman_collection.json) untuk mengimpor seluruh koleksi API siap pakai.
+
+
 > Sistem mencakup autentikasi berbasis token, manajemen karyawan, sistem penggajian yang sepenuhnya otomatis (mulai dari perhitungan gaji pokok hingga PPh21 dan Take Home Pay), manajemen status pembayaran, slip gaji PDF, ekspor data, serta riwayat payroll setiap karyawan.
 
 > Seluruh fitur telah diuji menggunakan Postman dan bekerja stabil. Backend telah disiapkan agar mudah diintegrasikan dengan frontend melalui REST API sehingga pengembangan UI dapat langsung dilanjutkan.
