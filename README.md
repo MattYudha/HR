@@ -150,39 +150,40 @@ Berikut adalah gambaran antarmuka yang didukung oleh struktur data backend ini:
 <table>
   <tr>
     <td width="33%">
-      <img src="https://via.placeholder.com/400x220/EFEFEF/AAAAAA?text=Dashboard+UI" alt="Dashboard" width="100%">
+      <img src="./docs/dashboard.png" alt="Dashboard" width="100%">
       <br>
       <div align="center"><b>Dashboard Overview</b></div>
     </td>
     <td width="33%">
-      <img src="https://via.placeholder.com/400x220/EFEFEF/AAAAAA?text=Employee+List" alt="Employee List" width="100%">
+      <img src="./docs/employee-list.png" alt="Employee List" width="100%">
       <br>
       <div align="center"><b>Employee List</b></div>
     </td>
     <td width="33%">
-      <img src="https://via.placeholder.com/400x220/EFEFEF/AAAAAA?text=Payroll+Table" alt="Payroll Table" width="100%">
+      <img src="./docs/payroll-table.png" alt="Payroll Table" width="100%">
       <br>
       <div align="center"><b>Payroll Table</b></div>
     </td>
   </tr>
   <tr>
     <td width="33%">
-      <img src="https://via.placeholder.com/400x220/EFEFEF/AAAAAA?text=Detail+Payroll" alt="Detail Payroll" width="100%">
+      <img src="./docs/detail-payroll.png" alt="Detail Payroll" width="100%">
       <br>
       <div align="center"><b>Detail & Tax Calc</b></div>
     </td>
     <td width="33%">
-      <img src="https://via.placeholder.com/400x220/EFEFEF/AAAAAA?text=Generate+Page" alt="Generate Page" width="100%">
+      <img src="./docs/generate-page.png" alt="Generate Page" width="100%">
       <br>
       <div align="center"><b>Generate Payroll</b></div>
     </td>
     <td width="33%">
-      <img src="https://via.placeholder.com/400x220/EFEFEF/AAAAAA?text=Payslip+PDF" alt="Payslip PDF" width="100%">
+      <img src="./docs/payslip-pdf.png" alt="Payslip PDF" width="100%">
       <br>
       <div align="center"><b>PDF Payslip</b></div>
     </td>
   </tr>
 </table>
+
 
 ```
 ## 📊 Metrik Performa Sistem
