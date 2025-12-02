@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Attendance Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#07a5ed",
+            "background-light": "#f5f7f8",
+            "background-dark": "#0f1d23",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .glass-panel {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(230, 230, 230, 0.8);
+    }
+
+    .dark .glass-panel {
+      background-color: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(51, 65, 85, 0.8);
+    }
+  </style>
+</head>
+<body class="font-display bg-gradient-to-br from-slate-50 to-sky-50 dark:from-background-dark dark:to-slate-900">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex h-screen w-64 flex-col justify-between border-r border-slate-200/80 bg-white/60 p-4 backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/60 fixed top-0 left-0">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="flex size-8 items-center justify-center text-primary">
+<svg class="size-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-lg font-bold tracking-[-0.015em] text-slate-800 dark:text-white">SkyHR</h2>
+</div>
+<div class="flex flex-col gap-2 pt-4">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">groups</span>
+<p class="text-sm font-medium">My Team</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-primary dark:bg-primary/30" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<p class="text-sm font-medium">Attendance</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">payments</span>
+<p class="text-sm font-medium">Payroll</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<p class="text-sm font-medium">Reports</p>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">help_center</span>
+<p class="text-sm font-medium">Support</p>
+</a>
+</div>
+</aside>
+<div class="flex w-full flex-col pl-64">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-10 flex h-20 items-center justify-between whitespace-nowrap border-b border-slate-200/80 bg-white/60 px-8 py-3 backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/60">
+<div class="flex items-center gap-8">
+<label class="relative flex w-full min-w-40 max-w-sm items-stretch">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="form-input h-11 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border-slate-200 bg-slate-100 text-slate-800 placeholder:text-slate-400 focus:border-primary focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-primary pl-12 text-base font-normal" placeholder="Search for employees, reports..." value=""/>
+</label>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex h-11 w-11 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+<button class="flex h-11 w-11 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-2xl">chat_bubble</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="aspect-square size-11 rounded-full bg-cover bg-center" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDfkQ_wGs5TZXtCBpk0Ow69Gvru78dD3W-onmldh7Gel_4dUjTsGizwuzKktyFjgx86gAEDj7IOcBwIbI5N3YqrsD23tniYutjJr9YsYovn8Adggh2owD5JC9yDIbqAkUABmTZQrSjBJoG7xgV7PFEoDZB8paM8KO1jUC_r_RLjQjBG840rjqed6PFQtlHkc8yzhg81kWPemg15_I42rE0cLFbDA30ES03fVOvFSWpEgcjU5CjNUZhc5GJHMa0h1aJ6DyjYw09qETI");'></div>
+<div class="flex flex-col text-left">
+<p class="font-semibold text-slate-800 dark:text-white">Mariah Wilson</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">HR Manager</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 p-8">
+<div class="flex flex-col gap-8">
+<!-- Page Header -->
+<div class="flex flex-col gap-2">
+<div class="flex flex-wrap gap-2 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary" href="#">Dashboard</a>
+<span>/</span>
+<span class="font-medium text-slate-700 dark:text-slate-200">Attendance</span>
+</div>
+<h1 class="text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-white">Attendance Tracker</h1>
+</div>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+<!-- Left Column: Calendar View -->
+<div class="col-span-1 flex flex-col gap-6 lg:col-span-2">
+<div class="glass-panel rounded-xl p-6">
+<div class="flex flex-col">
+<div class="flex items-center justify-between pb-4">
+<p class="text-xl font-bold text-slate-800 dark:text-white">August 2024</p>
+<div class="flex items-center gap-1">
+<button class="flex size-10 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-xl">chevron_left</span>
+</button>
+<button class="flex size-10 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-xl">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-1">
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Sun</p>
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Mon</p>
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tue</p>
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Wed</p>
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Thu</p>
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Fri</p>
+<p class="flex h-12 w-full items-center justify-center pb-0.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Sat</p>
+<button class="col-start-5 h-12 w-full text-sm font-medium text-slate-400 dark:text-slate-500">1</button>
+<button class="h-12 w-full text-sm font-medium text-slate-400 dark:text-slate-500">2</button>
+<button class="h-12 w-full text-sm font-medium text-slate-400 dark:text-slate-500">3</button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">4</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-white"><div class="flex size-full items-center justify-center rounded-lg bg-primary">5</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">6</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-red-500">7</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">8</div></button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">9</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">10</button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">11</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">12</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">13</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">14</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">15</div></button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">16</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">17</button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-amber-500">18</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-amber-500">19</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">20</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-green-500">21</div></button>
+<button class="relative h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200"><div class="flex size-full items-center justify-center rounded-lg border-2 border-sky-400">22</div></button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">23</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">24</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">25</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">26</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">27</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">28</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">29</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">30</button>
+<button class="h-12 w-full text-sm font-medium text-slate-800 dark:text-slate-200">31</button>
+</div>
+<div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 border-t border-slate-200 dark:border-slate-700">
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full border-2 border-green-500"></div>
+<span class="text-xs text-slate-600 dark:text-slate-400">Present</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full border-2 border-red-500"></div>
+<span class="text-xs text-slate-600 dark:text-slate-400">Absent</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full border-2 border-amber-500"></div>
+<span class="text-xs text-slate-600 dark:text-slate-400">On Leave</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-3 rounded-full border-2 border-sky-400"></div>
+<span class="text-xs text-slate-600 dark:text-slate-400">Holiday</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Action Card & Summary -->
+<div class="col-span-1 flex flex-col gap-6">
+<div class="glass-panel flex flex-col items-center justify-center gap-4 rounded-xl p-6 text-center">
+<p class="text-6xl font-bold text-slate-800 dark:text-white">09:15 AM</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Tuesday, 5 August 2024</p>
+<p class="text-sm font-medium text-green-600 dark:text-green-400">You are currently clocked in.</p>
+<button class="flex h-12 w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-red-500 text-base font-bold text-white shadow-md hover:bg-red-600">
+<span>Clock Out</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-panel flex flex-col gap-1 rounded-xl p-4">
+<p class="text-sm text-slate-500 dark:text-slate-400">Days Present</p>
+<p class="text-2xl font-bold text-slate-800 dark:text-white">22</p>
+</div>
+<div class="glass-panel flex flex-col gap-1 rounded-xl p-4">
+<p class="text-sm text-slate-500 dark:text-slate-400">Days Absent</p>
+<p class="text-2xl font-bold text-slate-800 dark:text-white">1</p>
+</div>
+<div class="glass-panel flex flex-col gap-1 rounded-xl p-4">
+<p class="text-sm text-slate-500 dark:text-slate-400">Total Overtime</p>
+<p class="text-2xl font-bold text-slate-800 dark:text-white">5h 30m</p>
+</div>
+<div class="glass-panel flex flex-col gap-1 rounded-xl p-4">
+<p class="text-sm text-slate-500 dark:text-slate-400">Late Arrivals</p>
+<p class="text-2xl font-bold text-slate-800 dark:text-white">3</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Log History Table -->
+<div class="glass-panel rounded-xl">
+<div class="border-b border-slate-200 p-4 dark:border-slate-700">
+<h3 class="text-lg font-bold text-slate-800 dark:text-white">Log History</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
+<tr class="border-b border-slate-200 dark:border-slate-700">
+<th class="p-4">Date</th>
+<th class="p-4">Status</th>
+<th class="p-4">Clock In</th>
+<th class="p-4">Clock Out</th>
+<th class="p-4">Total Hours</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 text-sm dark:divide-slate-700">
+<tr class="text-slate-700 dark:text-slate-300">
+<td class="p-4">Aug 05, 2024</td>
+<td class="p-4"><span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">Present</span></td>
+<td class="p-4">09:00 AM</td>
+<td class="p-4">06:00 PM</td>
+<td class="p-4">9h 0m</td>
+</tr>
+<tr class="text-slate-700 dark:text-slate-300">
+<td class="p-4">Aug 04, 2024</td>
+<td class="p-4"><span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">Present</span></td>
+<td class="p-4">09:15 AM</td>
+<td class="p-4">06:05 PM</td>
+<td class="p-4">8h 50m</td>
+</tr>
+<tr class="text-slate-700 dark:text-slate-300">
+<td class="p-4">Aug 03, 2024</td>
+<td class="p-4"><span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-700 dark:text-slate-300">Weekend</span></td>
+<td class="p-4">-</td>
+<td class="p-4">-</td>
+<td class="p-4">-</td>
+</tr>
+<tr class="text-slate-700 dark:text-slate-300">
+<td class="p-4">Aug 02, 2024</td>
+<td class="p-4"><span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">Absent</span></td>
+<td class="p-4">-</td>
+<td class="p-4">-</td>
+<td class="p-4">-</td>
+</tr>
+<tr class="text-slate-700 dark:text-slate-300">
+<td class="p-4">Aug 01, 2024</td>
+<td class="p-4"><span class="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900 dark:text-amber-300">On Leave</span></td>
+<td class="p-4">-</td>
+<td class="p-4">-</td>
+<td class="p-4">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>
