@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Employee Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#36a4f2",
+            "background-light": "#f6f7f8",
+            "background-dark": "#101b22",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .glassmorphic-card {
+      background-color: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dark .glassmorphic-card {
+      background-color: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200">
+<div class="relative min-h-screen w-full flex">
+<!-- Decorative background elements -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+<div class="absolute w-96 h-96 bg-sky-300/30 dark:bg-sky-500/20 rounded-full -top-24 -left-24 blur-3xl"></div>
+<div class="absolute w-96 h-96 bg-primary/20 dark:bg-primary/10 rounded-full -bottom-24 -right-24 blur-3xl"></div>
+</div>
+<!-- SideNavBar -->
+<aside class="w-64 flex-shrink-0 p-4">
+<div class="flex h-full flex-col justify-between bg-white/50 dark:bg-slate-800/30 backdrop-blur-lg border border-white/30 dark:border-slate-700/50 rounded-xl p-4">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Abstract blue and white waves pattern" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDy5JB388bGuQg_rMZrCbDfq45302kAyUfPo4RgChMrrAGBZXZ_u3hoFsGkXAYD75Wa9NNL5DAhw7ElbSy1ZW3E6mBA-2d9SPjfVrqeBQP3iKt3H7fM-71A8mpwOvEOLHzCfX4t-No1DZdTFciMGTagdF-wzhloqa_W3sxkgalwiZI5pCL30d1uOFlu5srhF22vfqLniw_lapAdBMqmMMsCO7tXNyclsd_xfA7qFTVInBwW7XZpMaeDx3xayg04WywacnvvWK4ubEA");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-normal">SkyHR</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">HR &amp; Payroll</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-white rounded" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary dark:bg-primary/30 dark:text-white" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<p class="text-sm font-medium leading-normal">Employees</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-white rounded" href="#">
+<span class="material-symbols-outlined">payments</span>
+<p class="text-sm font-medium leading-normal">Payroll</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-white rounded" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-white rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-white rounded" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<p class="text-sm font-medium leading-normal">Help Center</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary dark:hover:text-white rounded" href="#">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Log out</p>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-4 pr-8 pl-0">
+<div class="flex flex-col gap-6 h-full">
+<!-- PageHeading -->
+<header>
+<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Employee Management</p>
+</header>
+<!-- ToolBar -->
+<div class="flex flex-wrap items-center justify-between gap-4 p-4 glassmorphic-card rounded-lg">
+<div class="flex items-center gap-4 flex-1 min-w-[250px]">
+<div class="relative w-full max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-full border-transparent bg-slate-100/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Search by name or department..." type="text"/>
+</div>
+<div class="relative">
+<select class="appearance-none pl-4 pr-10 py-2 rounded-full border-transparent bg-slate-100/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+<option>Filter by Role</option>
+<option>Product Designer</option>
+<option>Frontend Developer</option>
+<option>Backend Developer</option>
+<option>UX Researcher</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<button class="flex items-center justify-center gap-2 px-6 py-2.5 text-white font-semibold rounded-full bg-gradient-to-br from-primary to-sky-400 hover:from-primary hover:to-sky-500 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined">add</span>
+                Add Employee
+            </button>
+</div>
+<!-- Table -->
+<div class="flex-1 @container glassmorphic-card rounded-xl overflow-hidden">
+<div class="overflow-x-auto h-full">
+<table class="w-full text-left">
+<thead class="sticky top-0 bg-white/20 dark:bg-slate-900/20 backdrop-blur-sm">
+<tr>
+<th class="px-6 py-4 text-slate-700 dark:text-slate-300 w-14 text-sm font-semibold uppercase tracking-wider"></th>
+<th class="px-6 py-4 text-slate-700 dark:text-slate-300 w-auto text-sm font-semibold uppercase tracking-wider">Full Name</th>
+<th class="px-6 py-4 text-slate-700 dark:text-slate-300 w-auto text-sm font-semibold uppercase tracking-wider">Position</th>
+<th class="px-6 py-4 text-slate-700 dark:text-slate-300 w-auto text-sm font-semibold uppercase tracking-wider">Department</th>
+<th class="px-6 py-4 text-slate-700 dark:text-slate-300 w-auto text-sm font-semibold uppercase tracking-wider">Salary</th>
+<th class="px-6 py-4 text-slate-700 dark:text-slate-300 w-auto text-sm font-semibold uppercase tracking-wider text-center">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-t border-t-slate-200/50 dark:border-t-slate-700/50 hover:bg-primary/10 transition-colors">
+<td class="px-6 py-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of Olivia Rhye" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6w8A4KpN3F4YXV3wf_FCIb-94IeKhCIdBfslQ2nlZlAYeF10ddGDQtEVV8wmpQ-iwpPLRAGDBci2ZXekCj5U4Nm08yClvglji0dYyl-eEUlMy8Yur0SspONw77TdTFN-kA0-TW9mROCPhU2omToYnXSpt-wcx5yXi7An7up43zqSrozvhwElojY7vhesCah37sdiLvXBWA6djOvzsOxIaW5lqERE9y6UP0qpqiflxHHokcm7mlfWRe5nJbKlBYzQd_UCZ1sz4WQE");'></div>
+</td>
+<td class="px-6 py-3 text-slate-800 dark:text-slate-100 text-sm font-medium">Olivia Rhye</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Product Designer</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Design</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">$110,000</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">visibility</span></button>
+</div>
+</td>
+</tr>
+<tr class="border-t border-t-slate-200/50 dark:border-t-slate-700/50 hover:bg-primary/10 transition-colors">
+<td class="px-6 py-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of Phoenix Stanley" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCUHKp06Crrk9KKNU3jJPwdanvojCbjzT00ScDk4uxLrwXjHpf0FhHjCwqb4h0vz1dUeTD-oQvn-q-TMrzP-Dg6StaRl5_el5SyWxesGEbWsR5QbunL2hMz9K1J-d9KUjdUoWkFVPr0UlROQIA7QNym9KpE0xpNiaXi8VL5zZE6T4HB2ZF_iFE-RZUi5Ok2Soch_QuwseyohCDIGeoW_2LxkS4QTH1qa3eakKvucIOtKHRDnp79ipkDJsa0JfnzlnDw0Yar6agH5rs");'></div>
+</td>
+<td class="px-6 py-3 text-slate-800 dark:text-slate-100 text-sm font-medium">Phoenix Stanley</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Frontend Developer</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Engineering</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">$125,000</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">visibility</span></button>
+</div>
+</td>
+</tr>
+<tr class="border-t border-t-slate-200/50 dark:border-t-slate-700/50 hover:bg-primary/10 transition-colors">
+<td class="px-6 py-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of Lana Steiner" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuByaKxHcj-xsC3oOTuGGU_HbYuCBAYNu8bDxRg7qSdmffo8jQVrIKIasKi6FcHL8KXj3XUbDMFd-hGNzAEEMI0OJLgRlQ7BrIOB_G7lcnXca39O25SF4x3lH9o3Pf28Py88xbMghifoh6E8ngefYlOxLcdUG25Hlzw5dDQRL257RclvzEkAqYXgrKa_ts0gnjfp5QXkZTg45bG2889622yN-Q3ozb9BBrSn26c0vuG8xX2kQ-xY0UMD5xj209kQFitFLe9GXfKDsWk");'></div>
+</td>
+<td class="px-6 py-3 text-slate-800 dark:text-slate-100 text-sm font-medium">Lana Steiner</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Backend Developer</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Engineering</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">$135,000</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">visibility</span></button>
+</div>
+</td>
+</tr>
+<tr class="border-t border-t-slate-200/50 dark:border-t-slate-700/50 hover:bg-primary/10 transition-colors">
+<td class="px-6 py-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of Drew Cano" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDbXkSuKYyZQbsodOmrxqJV-83UpTDUpDoDvLAuJiPmncNeP-4n1LN6Ucn9N1YwXTygGW8OuMbYzMOUtDCq4Aey4fBy43kPsU65jDU3RPS3b4Azpc4SRBuMa_MaJv3DmJwPSGUcxm6cw-MIgegYfisj_pvb9wlnHJFFv8yM6unsJo45SS15WbDrfEVhzNjN5JhlEjWEbXtG82bnfP7UFGW8pZLvPK5vz8UyA5VvdD1MNNiuPAPtoug3WQQl-zvRyFHM0EqDGrZFDE");'></div>
+</td>
+<td class="px-6 py-3 text-slate-800 dark:text-slate-100 text-sm font-medium">Drew Cano</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">UX Researcher</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Design</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">$95,000</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">visibility</span></button>
+</div>
+</td>
+</tr>
+<tr class="border-t border-t-slate-200/50 dark:border-t-slate-700/50 hover:bg-primary/10 transition-colors">
+<td class="px-6 py-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Profile picture of Demi Wilkinson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCZAKYm9UUtjZvsgX51zQmksMBrv_49x8cwTJYoPOo1qdAab2q7WlImTE15UEeGx63PWl1aNhXlYl0bpckGM45lCsm7BqQl2R7i4djzUbgqT4M24LyeKMwbjzmdF_Lk0gBb82ju5M8UltbfwtoGtez0QN9xkiyjh9rUyGxHViaOAT6NLoqSBDNUImZEK7XA022YgNworRa2dRek6Wa3MqGIwZfm_7VqgL6pPXTR-FLs6RJzDKZqBhrhQhvzPXC5sW9NyPQ75lDj6W0");'></div>
+</td>
+<td class="px-6 py-3 text-slate-800 dark:text-slate-100 text-sm font-medium">Demi Wilkinson</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Product Manager</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">Product</td>
+<td class="px-6 py-3 text-slate-600 dark:text-slate-300 text-sm">$140,000</td>
+<td class="px-6 py-3 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 rounded-full hover:bg-slate-400/20 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors"><span class="material-symbols-outlined text-xl">visibility</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-center p-4">
+<a class="flex size-10 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">chevron_left</span>
+</a>
+<a class="text-sm font-bold flex size-10 items-center justify-center text-white bg-primary rounded-full" href="#">1</a>
+<a class="text-sm font-normal flex size-10 items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary/20 rounded-full" href="#">2</a>
+<a class="text-sm font-normal flex size-10 items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary/20 rounded-full" href="#">3</a>
+<span class="text-sm font-normal flex size-10 items-center justify-center text-slate-600 dark:text-slate-300">...</span>
+<a class="text-sm font-normal flex size-10 items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary/20 rounded-full" href="#">8</a>
+<a class="text-sm font-normal flex size-10 items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary/20 rounded-full" href="#">9</a>
+<a class="text-sm font-normal flex size-10 items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary/20 rounded-full" href="#">10</a>
+<a class="flex size-10 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>
