@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkyHR Approval Center - Variant 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#07a5ed",
+            "background-light": "#f5f7f8",
+            "background-dark": "#0f1d23",
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex min-h-screen w-full">
+<!-- SideNavBar -->
+<aside class="flex h-screen w-64 flex-col border-r border-slate-200/80 bg-white/80 p-4 backdrop-blur-lg dark:border-slate-800/80 dark:bg-background-dark/80 sticky top-0">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="SkyHR company logo, a stylized cloud" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgTCD5TKpnbHE_DCq2bBw3HuUZwZgxlA2fm7EglA42TXTvjMaQ0X50Zv3oaw984suBjEJYX90aL_K2vyImPd-kQY7cGspSDWtT6bk_qLOu2NXtbybfpTsqHf7fkuQogeVGgeJX4L5Ku347Aeg7rwp9JlZ2NmCtHTjNISd-yyMeVivr1-fntPGD17xsbCavyU7zxQ8lPBHfActdUayI-mjMBbxd88l6Ke6w2AmM0HEm4pF8n9Z19xe4Zp2_PQ57Id4m6Pkaiufr7Jw");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-medium leading-normal">SkyHR</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">HR &amp; Payroll</p>
+</div>
+</div>
+<nav class="mt-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+<p class="text-sm font-medium leading-normal">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">receipt_long</span>
+<p class="text-sm font-medium leading-normal">Payroll</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg bg-primary/10 px-3 py-2 text-primary dark:bg-primary/20 dark:text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+<p class="text-sm font-medium leading-normal">Approvals</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">groups</span>
+<p class="text-sm font-medium leading-normal">Employees</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<p class="text-sm font-medium leading-normal">Reports</p>
+</a>
+</nav>
+</div>
+<div class="mt-auto flex flex-col gap-1">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<p class="text-sm font-medium leading-normal">Settings</p>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined text-2xl">help_center</span>
+<p class="text-sm font-medium leading-normal">Help</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex flex-1 flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200/80 bg-white/80 px-10 py-3 backdrop-blur-lg dark:border-slate-800/80 dark:bg-background-dark/80 sticky top-0 z-10">
+<label class="relative flex h-10 w-full max-w-sm items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-500 dark:text-slate-400">search</span>
+<input class="form-input h-full w-full rounded-lg border-none bg-slate-100 pl-10 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-400" placeholder="Search approvals..." value=""/>
+</label>
+<div class="flex flex-1 items-center justify-end gap-4">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-2xl">chat_bubble</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD832IDJ2Iezq_FpP7aElmJp-OPUpyWucthSjV2QwT6hzXmWl5pUX1__d1V0m25NLYILheIpp27vTjWXAsdgwQEfhFH66Q-F4LZdXVdfAI3jtZhJh8FR0knLk7RRy8LnJeyq2jT0RUCwlorPpz9pyPbutYnuiUffvqeJTnR-1jijMLgYmDtmKieQU9e6h3cCHglrWzluCJYNq0mzwfTW9a31carjEycdbuKnQFcSx8DOjMtLRnQr0F4PWOXxG9IWgqOBaMM86Kife4");'></div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 p-10">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2">
+<a class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal hover:text-primary" href="#">Home</a>
+<span class="text-slate-500 dark:text-slate-400 text-base font-medium leading-normal">/</span>
+<span class="text-slate-900 dark:text-white text-base font-medium leading-normal">Approvals</span>
+</div>
+<!-- PageHeading -->
+<div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+<div class="flex min-w-72 flex-col gap-2">
+<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Approval Center</p>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal leading-normal">Manage all pending, approved, and rejected requests.</p>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90">
+<span class="material-symbols-outlined">add</span>
+<span class="truncate">New Request</span>
+</button>
+</div>
+<!-- Tabs -->
+<div class="mt-8 pb-3">
+<div class="flex border-b border-slate-200 dark:border-slate-800 gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Pending Review</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 hover:border-b-slate-300 dark:hover:border-b-slate-700" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Approved</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 hover:border-b-slate-300 dark:hover:border-b-slate-700" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Rejected</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 dark:text-slate-400 pb-[13px] pt-4 hover:border-b-slate-300 dark:hover:border-b-slate-700" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">All Requests</p>
+</a>
+</div>
+</div>
+<!-- Request List -->
+<div class="mt-6 flex flex-col gap-4">
+<!-- Request Item -->
+<div class="grid grid-cols-[auto,1fr,auto] items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900/50">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Avatar of Olivia Rhye" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLw6yfuiZ0V0j3ioPzyUGPEb7t-TQzs2tSwmXGI7NhvsWq91zHu4Xly4ijihXPsZ0R5KP-2b6_85SPTBjqg2M9nkPDfqjGfZmsHLgJ-Rmdz29tORMN3IygfCo_Wq6V7x48gY63Yg8qUjzL5yDyhPdYqjjD13rUxvwbsb4lV6GYfW98Erg8w-QKjxZjOVLhGHT9k2RJbzjUhbrg4pixNiDQ32r9Uwn_Dolv3-1Pk2lBvENzVIRMgYU2UiOT6H379rC-SSUR1y9NGUQ");'></div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-white">Olivia Rhye</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Leave Request: Vacation</p>
+</div>
+</div>
+<div class="text-center">
+<p class="font-medium text-slate-900 dark:text-white">Nov 15, 2023 - Nov 18, 2023</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">3 days</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 text-slate-700 text-sm font-bold hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Reject</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary/90">Approve</button>
+</div>
+</div>
+<!-- Request Item -->
+<div class="grid grid-cols-[auto,1fr,auto] items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900/50">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Avatar of Phoenix Baker" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANTwSj2uY7SkjfgCA5r-ReCHQIpFjnI2iQybSFKhuqGwOGsBKU0NIdW1pZ7wqInh-QFApKRgF3XWiClKmu68D545vbWPyKOEWshLeSpUi4Hk4llE9yRaVECBdoPsklaTzDCM39J2YJ4V44e5dO6Yx41ctsjLxGz1_sO5oB3SIRvLzFctQdE1tISZwZ5WAl0F08jOaGDt0a-yFh7Knlrr4BtnsIUJHGeVLcV3aljH3pUWb7kor4tZ3P_zgjqYzi9SyJyjfWPKE6C8E");'></div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-white">Phoenix Baker</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Expense Claim: Team Lunch</p>
+</div>
+</div>
+<div class="text-center">
+<p class="font-medium text-slate-900 dark:text-white">$124.50</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Submitted on Nov 10, 2023</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 text-slate-700 text-sm font-bold hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Reject</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary/90">Approve</button>
+</div>
+</div>
+<!-- Request Item -->
+<div class="grid grid-cols-[auto,1fr,auto] items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900/50">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Avatar of Lana Steiner" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCf2JyWbprI8s1EwMKESnjIklhtYpKPqBUEwVLX8tsvkJp0coSP99kFg4R7vVASgRFAgpqmi_XknwI4dI-Z3-cRp9fCO9Dmvhto8LaFqRcs83xrLwmbu97Up1hTXykvA0oc8lCk1Clq9OadfTzruuuKc9D1VdCvG4sVomyMnWVhM8fugbojUYC5JJrh_8DarBRTCkwzMu6-byReok8LueBtFwxOUzImkANO42u8zgUg3jmn_sQnbOeLHpOxo4jbMzswiL75JmeTkiA");'></div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-white">Lana Steiner</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">WFH Request</p>
+</div>
+</div>
+<div class="text-center">
+<p class="font-medium text-slate-900 dark:text-white">Nov 20, 2023</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">1 day</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 text-slate-700 text-sm font-bold hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Reject</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary/90">Approve</button>
+</div>
+</div>
+<!-- Request Item -->
+<div class="grid grid-cols-[auto,1fr,auto] items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900/50">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Avatar of Candice Wu" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCga0rU-vkbSC6jOWAnwCq05BI7RBtlG745uJCi4pyAqorrXZAxUHQR3R2fmdXIuM1cNiVuGdb3hVEa4n1JaQpTB5-JHfySDYM8QJqU8pgDslH8V1nAwDHSwrXTatlm0vfv1JqCE6ZTwH1FcxBltnEibjnaf1rKDSROmgPcRZyRFC4lIyFFlru76I0j8DM7yalAIDoC9mtXJmnWZlwe81IWlasEC-Wkhi9W7H_dFUAtgjklYEM-aq3cGhVRK-ArakPljDkBQc_9ags");'></div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-white">Candice Wu</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Leave Request: Sick</p>
+</div>
+</div>
+<div class="text-center">
+<p class="font-medium text-slate-900 dark:text-white">Nov 14, 2023</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">1 day</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 text-slate-700 text-sm font-bold hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Reject</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary/90">Approve</button>
+</div>
+</div>
+<!-- Request Item -->
+<div class="grid grid-cols-[auto,1fr,auto] items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900/50">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Avatar of Demi Wilkinson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCY4_S46nlyxpDwOAoz6N_696d8gvqsd0Gp2IDBkAamocsehI7A0Hc0GpibTiR74p4Yh5EpFY5cFFv9lwaLWK1NKWdaZQ2GuTsOb_gyHkYM-rWVnaGx8C6BMj26Q5_Bg84ySqvwp80IC1Akxle6ZesdbBzwonktOJ9H7754pf-7kxYaSkWyIOrczPMagE6O7J9XVr9Bu7CMRWSic6Kd7eABnbFMYXPD98BTDznMU0fhcaKKH0K-y4C9PtyYHEOTFU0T7s0dqDhEphw");'></div>
+<div>
+<p class="font-semibold text-slate-900 dark:text-white">Demi Wilkinson</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Expense Claim: Travel</p>
+</div>
+</div>
+<div class="text-center">
+<p class="font-medium text-slate-900 dark:text-white">$850.00</p>
+<p class="text-sm text-slate-500 dark:text-slate-400">Submitted on Nov 9, 2023</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 text-slate-700 text-sm font-bold hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Reject</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary/90">Approve</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
