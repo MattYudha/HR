@@ -2,6 +2,7 @@ import { User } from '@prisma/client';
 export declare class AuthRepository {
     findUserByEmail(email: string): Promise<User | null>;
     createUser(data: {
+        name: string;
         email: string;
         password: string;
         roleId: string;

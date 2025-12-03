@@ -7,8 +7,16 @@ exports.PayrollRepository = void 0;
 const prisma_1 = __importDefault(require("../../utils/prisma"));
 class PayrollRepository {
     async createPayroll(data) {
+        const { employeeId, ...rest } = data;
         return await prisma_1.default.payroll.create({
-            data,
+            data: {
+                ...rest,
+                employee: {
+                    connect: {
+                        id: employeeId
+                    }
+                }
+            },
             include: {
                 employee: {
                     include: {
@@ -58,10 +66,75 @@ class PayrollRepository {
             }
         });
     }
-    async findAllPayrolls() {
+    async getPayrollListItems(filters) {
+        const { status, period, employeeId, search, page = 1, limit = 10 } = filters;
+        const skip = (page - 1) * limit;
+        const whereClause = {};
+        if (status) {
+            whereClause.status = status;
+        }
+        if (period) {
+            whereClause.period = period;
+        }
+        if (employeeId) {
+            whereClause.employeeId = employeeId;
+        }
+        if (search) {
+            whereClause.OR = [
+                { employee: { fullName: { contains: search, mode: 'insensitive' } } },
+                { employee: { user: { email: { contains: search, mode: 'insensitive' } } } }
+            ];
+        }
         return await prisma_1.default.payroll.findMany({
-            orderBy: {
-                createdAt: 'desc'
+            where: whereClause,
+            include: {
+                employee: {
+                    include: { user: true }
+                }
+            },
+            skip,
+            take: limit,
+            orderBy: { createdAt: 'desc' }
+        });
+    }
+    async countPayrollListItems(filters) {
+        const { status, period, employeeId, search } = filters;
+        const whereClause = {};
+        if (status) {
+            whereClause.status = status;
+        }
+        if (period) {
+            whereClause.period = period;
+        }
+        if (employeeId) {
+            whereClause.employeeId = employeeId;
+        }
+        if (search) {
+            whereClause.OR = [
+                { employee: { fullName: { contains: search, mode: 'insensitive' } } },
+                { employee: { user: { email: { contains: search, mode: 'insensitive' } } } }
+            ];
+        }
+        return await prisma_1.default.payroll.count({ where: whereClause });
+    }
+    async findPayrollByIdIncludeEmployeeUser(id) {
+        return await prisma_1.default.payroll.findUnique({
+            where: { id },
+            include: {
+                employee: {
+                    include: {
+                        user: true
+                    }
+                }
+            }
+        });
+    }
+    async markPayrollAsPaid(id) {
+        return await prisma_1.default.payroll.update({
+            where: { id },
+            data: {
+                status: 'PAID',
+                paidDate: new Date()
             },
             include: {
                 employee: {
@@ -70,6 +143,43 @@ class PayrollRepository {
                     }
                 }
             }
+        });
+    }
+    async revertPayroll(id) {
+        return await prisma_1.default.payroll.update({
+            where: { id },
+            data: {
+                status: 'PENDING',
+                paidDate: null,
+                updatedAt: new Date()
+            },
+            include: {
+                employee: {
+                    include: {
+                        user: true
+                    }
+                }
+            }
+        });
+    }
+    async findEmployeesWithoutPayroll(period) {
+        return await prisma_1.default.employee.findMany({
+            where: {
+                payrolls: {
+                    none: {
+                        period: period
+                    }
+                }
+            },
+            include: {
+                user: true
+            }
+        });
+    }
+    async createManyPayroll(records) {
+        return await prisma_1.default.payroll.createMany({
+            data: records,
+            skipDuplicates: true
         });
     }
 }

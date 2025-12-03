@@ -46,20 +46,54 @@ class PayrollController {
             });
         }
     }
-    async getAllPayrolls(_req, res) {
+    async getPayrollList(req, res) {
         try {
-            const payrolls = await payroll_service_1.default.getAllPayrolls();
+            const { page, limit, status, period, employeeId, search } = req.query;
+            const filters = {
+                page: page ? parseInt(page, 10) : undefined,
+                limit: limit ? parseInt(limit, 10) : undefined,
+                status: status,
+                period: period,
+                employeeId: employeeId,
+                search: search
+            };
+            const payrollList = await payroll_service_1.default.getPayrollList(filters);
             res.json({
                 success: true,
-                message: 'All payrolls retrieved successfully',
-                data: payrolls
+                message: 'Payroll list fetched',
+                data: payrollList
             });
         }
         catch (error) {
             res.status(400).json({
                 success: false,
-                message: error instanceof Error ? error.message : 'Failed to get payrolls'
+                message: error instanceof Error ? error.message : 'Failed to get payroll list'
             });
+        }
+    }
+    async bulkGenerate(req, res) {
+        try {
+            const { period } = req.body;
+            const result = await payroll_service_1.default.bulkGeneratePayroll(period);
+            res.status(200).json({
+                success: true,
+                message: `Payroll generated for ${result.generatedCount} employees`,
+                data: result.generatedPayrolls
+            });
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                res.status(400).json({
+                    success: false,
+                    message: error.message
+                });
+            }
+            else {
+                res.status(500).json({
+                    success: false,
+                    message: 'An unexpected error occurred'
+                });
+            }
         }
     }
 }

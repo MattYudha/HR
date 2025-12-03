@@ -4,14 +4,15 @@
   "private": true,
   "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "dev": "cross-env PRISMA_CLIENT_ENGINE_TYPE=binary ts-node-dev --respawn --transpile-only --clear src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:migrate": "dotenv -e .env -- npx prisma migrate dev --name add-pph21-fields",
-    "db:studio": "dotenv -e .env -- npx prisma studio"
+    "db:studio": "dotenv -e .env -- npx prisma studio",
+    "prisma:seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.0.1",

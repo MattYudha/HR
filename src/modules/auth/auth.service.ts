@@ -2,9 +2,10 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { env } from '../../config/env';
 import authRepository from './auth.repository';
+import prisma from '../../utils/prisma'; // Import the shared prisma instance
 
 export class AuthService {
-  async register(email: string, password: string, roleId: string) {
+  async register(name: string, email: string, password: string) { // Modified method signature
     const existingUser = await authRepository.findUserByEmail(email);
 
     if (existingUser) {
@@ -13,10 +14,20 @@ export class AuthService {
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
+    // Find the 'employee' role ID
+    const employeeRole = await prisma.role.findUnique({
+        where: { name: 'employee' },
+    });
+
+    if (!employeeRole) {
+        throw new Error('Employee role not found. Please seed the database.');
+    }
+
     const user = await authRepository.createUser({
+      name, // Pass name to repository
       email,
       password: hashedPassword,
-      roleId
+      roleId: employeeRole.id, // Assign employee role
     });
 
     // Fetch the user again to get the role object

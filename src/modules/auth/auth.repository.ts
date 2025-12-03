@@ -10,6 +10,7 @@ export class AuthRepository {
   }
 
   async createUser(data: {
+    name: string; // Added name
     email: string;
     password: string;
     roleId: string;

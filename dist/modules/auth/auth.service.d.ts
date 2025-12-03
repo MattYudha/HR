@@ -1,26 +1,10 @@
 export declare class AuthService {
-    register(email: string, password: string, roleId: string): Promise<{
-        user: {
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            email: string;
-            password: string;
-            roleId: string;
-            isActive: boolean;
-        };
+    register(name: string, email: string, password: string): Promise<{
+        user: any;
         token: string;
     }>;
     login(email: string, password: string): Promise<{
-        user: {
-            id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            email: string;
-            password: string;
-            roleId: string;
-            isActive: boolean;
-        };
+        user: any;
         token: string;
     }>;
     private generateToken;

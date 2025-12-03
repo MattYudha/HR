@@ -22,7 +22,8 @@ const authMiddleware = async (req, res, next) => {
         const user = await prisma_1.default.user.findUnique({
             where: { id: decoded.sub },
             include: {
-                role: true
+                role: true,
+                employee: true
             }
         });
         if (!user || !user.isActive) {
@@ -35,7 +36,8 @@ const authMiddleware = async (req, res, next) => {
         req.user = {
             id: user.id,
             email: user.email,
-            role: user.role.name
+            role: user.role.name,
+            employeeId: user.employee?.id
         };
         next();
     }

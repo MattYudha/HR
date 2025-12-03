@@ -18,5 +18,23 @@ export const dashboardController = {
       message: 'Payroll trend fetched',
       data,
     });
-  }
+  },
+
+  async attendanceToday(req: Request, res: Response) {
+    const data = await dashboardService.attendanceToday();
+    return res.json({
+      success: true,
+      message: 'Attendance for today fetched',
+      data,
+    });
+  },
+
+  async kpiAverage(req: Request, res: Response) {
+    const data = await dashboardService.kpiAverage();
+    return res.json({
+      success: true,
+      message: 'Average KPI fetched',
+      data,
+    });
+  },
 };

@@ -4,9 +4,9 @@ import authService from './auth.service';
 export class AuthController {
   async register(req: Request, res: Response): Promise<void> {
     try {
-      const { email, password, roleId } = req.body;
+      const { name, email, password } = req.body; // Extract name
 
-      const result = await authService.register(email, password, roleId);
+      const result = await authService.register(name, email, password); // Pass name
 
       res.status(201).json({
         success: true,
@@ -14,6 +14,7 @@ export class AuthController {
         data: {
           user: {
             id: result.user.id,
+            name: result.user.name, // Include name in response
             email: result.user.email
           },
           token: result.token
@@ -39,7 +40,8 @@ export class AuthController {
         data: {
           user: {
             id: result.user.id,
-            email: result.user.email
+            email: result.user.email,
+            name: result.user.name // Ensure name is included here for login response too.
           },
           token: result.token
         }

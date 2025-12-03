@@ -60,5 +60,15 @@ export const dashboardService = {
     }
 
     return result;
-  }
+  },
+
+  async attendanceToday() {
+    const todayData = await dashboardRepository.attendanceToday();
+    return todayData;
+  },
+
+  async kpiAverage() {
+    const kpiAvgData = await dashboardRepository.kpiAverage();
+    return kpiAvgData;
+  },
 };

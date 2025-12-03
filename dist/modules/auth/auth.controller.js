@@ -8,14 +8,15 @@ const auth_service_1 = __importDefault(require("./auth.service"));
 class AuthController {
     async register(req, res) {
         try {
-            const { email, password, roleId } = req.body;
-            const result = await auth_service_1.default.register(email, password, roleId);
+            const { name, email, password } = req.body;
+            const result = await auth_service_1.default.register(name, email, password);
             res.status(201).json({
                 success: true,
                 message: 'User registered successfully',
                 data: {
                     user: {
                         id: result.user.id,
+                        name: result.user.name,
                         email: result.user.email
                     },
                     token: result.token
@@ -39,7 +40,8 @@ class AuthController {
                 data: {
                     user: {
                         id: result.user.id,
-                        email: result.user.email
+                        email: result.user.email,
+                        name: result.user.name
                     },
                     token: result.token
                 }
