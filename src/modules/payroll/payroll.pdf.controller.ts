@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import payrollService from './payroll.service';
-import { format } from 'date-fns';
-import PDFDocument from 'pdfkit';
+// import { format } from 'date-fns';
+// import PDFDocument from 'pdfkit';
 
 export class PayrollPdfController {
   async generatePayrollSlip(req: Request, res: Response): Promise<void> {

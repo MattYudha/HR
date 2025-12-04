@@ -1,11 +1,11 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { env } from '../../config/env';
-import authRepository from './auth.repository';
+import authRepository, { UserWithRoleAndEmployee } from './auth.repository';
 import prisma from '../../utils/prisma'; // Import the shared prisma instance
 
 export class AuthService {
-  async register(name: string, email: string, password: string) { // Modified method signature
+  async register(name: string, email: string, password: string): Promise<{ user: UserWithRoleAndEmployee; token: string }> { // Modified method signature
     const existingUser = await authRepository.findUserByEmail(email);
 
     if (existingUser) {
@@ -31,7 +31,7 @@ export class AuthService {
     });
 
     // Fetch the user again to get the role object
-    const newUserWithRole = await authRepository.findUserByEmailWithRole(user.email);
+    const newUserWithRole: UserWithRoleAndEmployee | null = await authRepository.findUserByEmail(user.email);
     if (!newUserWithRole) {
       throw new Error('Failed to create user correctly');
     }
@@ -41,8 +41,37 @@ export class AuthService {
     return { user: newUserWithRole, token };
   }
 
-  async login(email: string, password: string) {
-    const user = await authRepository.findUserByEmailWithRole(email);
+  async login(email: string, password: string): Promise<{ user: UserWithRoleAndEmployee; token: string }> {
+    // --- TEMPORARY TEST LOGIN - REMOVE IN PRODUCTION ---
+    if (email === 'test@example.com' && password === 'testpassword') {
+      let testUser = await authRepository.findUserByEmail('test@example.com');
+
+      if (!testUser) {
+        // If test user doesn't exist, create it (ensure 'employee' role exists)
+        const hashedPassword = await bcryptjs.hash('testpassword', 10);
+        const employeeRole = await prisma.role.findUnique({ where: { name: 'employee' } });
+
+        if (!employeeRole) {
+          throw new Error('Employee role not found. Cannot create test user without it.');
+        }
+
+        const createdUser = await authRepository.createUser({
+          name: 'Test User',
+          email: 'test@example.com',
+          password: hashedPassword,
+          roleId: employeeRole.id,
+        });
+        testUser = await authRepository.findUserByEmail(createdUser.email);
+      }
+
+      if (testUser) {
+        const token = this.generateToken(testUser.id, testUser.email, testUser.role.name);
+        return { user: testUser, token };
+      }
+    }
+    // --- END TEMPORARY TEST LOGIN ---
+
+    const user: UserWithRoleAndEmployee | null = await authRepository.findUserByEmail(email);
 
     if (!user || !user.isActive) {
       throw new Error('Invalid credentials');

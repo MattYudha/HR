@@ -208,7 +208,7 @@ export class PayrollService {
     // 3. Create default payroll records
     const payrollRecords = employeesToGenerateFor.map(employee => {
       // Assuming allowances and deductions are 0 for bulk generation
-      const baseSalary = this.cleanAndParseNumber(employee.baseSalary); // Use new function
+      const baseSalary = this.cleanAndParseNumber(employee.baseSalary.toNumber()); // Use new function
       const allowances = this.cleanAndParseNumber(0); // Still 0, but pass through for consistency
       const deductions = this.cleanAndParseNumber(0); // Still 0, but pass through for consistency
       const totalSalary = baseSalary + allowances - deductions;
@@ -236,7 +236,7 @@ export class PayrollService {
     // 5. Fetch the newly created payrolls based on period and employee IDs
     const createdEmployeeIds = employeesToGenerateFor.map(emp => emp.id);
 
-    const fetchedNewlyCreatedPayrolls = await prisma.payroll.findMany({
+    const fetchedNewlyCreatedPayrolls = await prisma!.payroll.findMany({
         where: {
             employeeId: {
                 in: createdEmployeeIds

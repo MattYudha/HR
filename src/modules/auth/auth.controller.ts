@@ -14,7 +14,7 @@ export class AuthController {
         data: {
           user: {
             id: result.user.id,
-            name: result.user.name, // Include name in response
+            name: result.user.employee?.fullName, // Include name in response
             email: result.user.email
           },
           token: result.token
@@ -41,7 +41,7 @@ export class AuthController {
           user: {
             id: result.user.id,
             email: result.user.email,
-            name: result.user.name // Ensure name is included here for login response too.
+            name: result.user.employee?.fullName // Ensure name is included here for login response too.
           },
           token: result.token
         }

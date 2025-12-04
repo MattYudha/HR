@@ -35,9 +35,11 @@ export class PayrollExportController {
         );
       }
       res.send(result);
+      return;
     } catch (error: any) {
       console.error('Error exporting payroll:', error);
       res.status(500).json({ success: false, message: error.message });
+    return;
     }
   }
 }

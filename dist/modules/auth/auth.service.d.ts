@@ -1,10 +1,11 @@
+import { UserWithRoleAndEmployee } from './auth.repository';
 export declare class AuthService {
     register(name: string, email: string, password: string): Promise<{
-        user: any;
+        user: UserWithRoleAndEmployee;
         token: string;
     }>;
     login(email: string, password: string): Promise<{
-        user: any;
+        user: UserWithRoleAndEmployee;
         token: string;
     }>;
     private generateToken;

@@ -149,7 +149,7 @@ class PayrollService {
             };
         }
         const payrollRecords = employeesToGenerateFor.map(employee => {
-            const baseSalary = this.cleanAndParseNumber(employee.baseSalary);
+            const baseSalary = this.cleanAndParseNumber(employee.baseSalary.toNumber());
             const allowances = this.cleanAndParseNumber(0);
             const deductions = this.cleanAndParseNumber(0);
             const totalSalary = baseSalary + allowances - deductions;

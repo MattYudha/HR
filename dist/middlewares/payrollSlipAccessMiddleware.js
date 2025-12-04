@@ -22,7 +22,7 @@ const payrollSlipAccessMiddleware = async (req, res, next) => {
                 res.status(404).json({ success: false, message: 'Payroll slip not found' });
                 return;
             }
-            if (payroll.employee?.userId === loggedInUser.sub) {
+            if (payroll.employee?.userId === loggedInUser.id) {
                 return next();
             }
         }

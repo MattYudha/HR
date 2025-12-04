@@ -28,13 +28,28 @@ exports.dashboardRepository = {
             where: { status: 'PENDING' }
         });
     },
-    attendanceToday() {
-        const today = new Date().toISOString().split('T')[0];
-        return prisma_1.default.attendance.count({
+    async attendanceToday() {
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+        const todayEnd = new Date();
+        todayEnd.setHours(23, 59, 59, 999);
+        const presentCount = await prisma_1.default.attendance.count({
             where: {
-                date: { gte: new Date(today) }
-            }
+                date: {
+                    gte: todayStart,
+                    lte: todayEnd,
+                },
+                status: 'PRESENT',
+            },
         });
+        const totalActiveEmployees = await prisma_1.default.employee.count({
+            where: {
+                user: {
+                    isActive: true,
+                },
+            },
+        });
+        return { present: presentCount, total: totalActiveEmployees };
     },
     kpiAverage() {
         return prisma_1.default.kPI.aggregate({

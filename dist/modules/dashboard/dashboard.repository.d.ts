@@ -11,7 +11,10 @@ export declare const dashboardRepository: {
     }>>;
     totalPayrollPending(): import(".prisma/client").Prisma.PrismaPromise<number>;
     totalApprovalPending(): import(".prisma/client").Prisma.PrismaPromise<number>;
-    attendanceToday(): import(".prisma/client").Prisma.PrismaPromise<number>;
+    attendanceToday(): Promise<{
+        present: number;
+        total: number;
+    }>;
     kpiAverage(): import(".prisma/client").Prisma.PrismaPromise<import(".prisma/client").Prisma.GetKPIAggregateType<{
         _avg: {
             score: true;

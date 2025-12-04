@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { dashboardService } from './dashboard.service';
 
 export const dashboardController = {
-  async summary(req: Request, res: Response) {
+  async summary(_req: Request, res: Response) {
     const data = await dashboardService.summary();
     return res.json({
       success: true,
@@ -11,7 +11,7 @@ export const dashboardController = {
     });
   },
 
-  async payrollTrend(req: Request, res: Response) {
+  async payrollTrend(_req: Request, res: Response) {
     const data = await dashboardService.payrollTrend();
     return res.json({
       success: true,
@@ -20,7 +20,7 @@ export const dashboardController = {
     });
   },
 
-  async attendanceToday(req: Request, res: Response) {
+  async attendanceToday(_req: Request, res: Response) {
     const data = await dashboardService.attendanceToday();
     return res.json({
       success: true,
@@ -29,7 +29,7 @@ export const dashboardController = {
     });
   },
 
-  async kpiAverage(req: Request, res: Response) {
+  async kpiAverage(_req: Request, res: Response) {
     const data = await dashboardService.kpiAverage();
     return res.json({
       success: true,

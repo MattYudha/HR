@@ -32,7 +32,7 @@ export const payrollSlipAccessMiddleware = async (req: Request, res: Response, n
       }
 
       // Check if the payroll belongs to the logged-in user
-      if (payroll.employee?.userId === loggedInUser.sub) {
+      if (payroll.employee?.userId === loggedInUser.id) {
         return next();
       }
     }

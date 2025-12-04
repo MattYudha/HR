@@ -20,27 +20,38 @@ const getRecapData = async (period) => {
             status: 'PAID',
         },
     });
-    const departmentStats = await prisma_1.default.payroll.groupBy({
-        by: ['employee.department'],
-        _sum: {
-            totalSalary: true,
-            pph21: true,
-            takeHomePay: true,
-        },
-        _count: {
-            employeeId: true,
-        },
+    const payrollsWithEmployee = await prisma_1.default.payroll.findMany({
         where: {
             period: period,
             status: 'PAID',
         },
+        include: {
+            employee: true,
+        },
     });
-    const departmentalRecap = departmentStats.map((stat) => ({
-        department: stat['employee.department'] || 'N/A',
-        totalSalary: stat._sum.totalSalary || 0,
-        totalPph21: stat._sum.pph21 || 0,
-        totalTakeHomePay: stat._sum.takeHomePay || 0,
-        employeeCount: stat._count.employeeId,
+    const departmentalMap = new Map();
+    payrollsWithEmployee.forEach(payroll => {
+        const department = payroll.employee?.department || 'N/A';
+        if (!departmentalMap.has(department)) {
+            departmentalMap.set(department, {
+                totalSalary: 0,
+                pph21: 0,
+                takeHomePay: 0,
+                employeeIds: new Set(),
+            });
+        }
+        const stats = departmentalMap.get(department);
+        stats.totalSalary += payroll.totalSalary.toNumber();
+        stats.pph21 += payroll.pph21.toNumber();
+        stats.takeHomePay += payroll.takeHomePay.toNumber();
+        stats.employeeIds.add(payroll.employeeId);
+    });
+    const departmentalRecap = Array.from(departmentalMap.entries()).map(([department, stats]) => ({
+        department: department,
+        totalSalary: stats.totalSalary,
+        totalPph21: stats.pph21,
+        totalTakeHomePay: stats.takeHomePay,
+        employeeCount: stats.employeeIds.size,
     }));
     const result = {
         period,

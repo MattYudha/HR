@@ -16,7 +16,7 @@ class AuthController {
                 data: {
                     user: {
                         id: result.user.id,
-                        name: result.user.name,
+                        name: result.user.employee?.fullName,
                         email: result.user.email
                     },
                     token: result.token
@@ -41,7 +41,7 @@ class AuthController {
                     user: {
                         id: result.user.id,
                         email: result.user.email,
-                        name: result.user.name
+                        name: result.user.employee?.fullName
                     },
                     token: result.token
                 }

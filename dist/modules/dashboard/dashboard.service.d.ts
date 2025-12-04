@@ -4,7 +4,10 @@ export declare const dashboardService: {
         payrollPaid: number | import("@prisma/client-runtime-utils").Decimal;
         payrollPending: number;
         approvalPending: number;
-        attendanceToday: number;
+        attendanceToday: {
+            present: number;
+            total: number;
+        };
         kpiAverageScore: number | import("@prisma/client-runtime-utils").Decimal;
     }>;
     payrollTrend(): Promise<{
@@ -12,7 +15,10 @@ export declare const dashboardService: {
         totalPaid: number;
         month: string;
     }[]>;
-    attendanceToday(): Promise<number>;
+    attendanceToday(): Promise<{
+        present: number;
+        total: number;
+    }>;
     kpiAverage(): Promise<import(".prisma/client").Prisma.GetKPIAggregateType<{
         _avg: {
             score: true;

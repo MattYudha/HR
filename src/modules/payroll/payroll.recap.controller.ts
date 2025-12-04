@@ -11,8 +11,10 @@ export const getPayrollRecap = async (req: Request, res: Response) => {
   try {
     const recapData = await getRecapData(period);
     res.json(recapData);
+    return;
   } catch (error) {
     console.error('Error fetching payroll recap:', error);
     res.status(500).json({ message: 'Failed to fetch payroll recap data' });
+    return;
   }
 };

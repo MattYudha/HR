@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.dashboardController = void 0;
 const dashboard_service_1 = require("./dashboard.service");
 exports.dashboardController = {
-    async summary(req, res) {
+    async summary(_req, res) {
         const data = await dashboard_service_1.dashboardService.summary();
         return res.json({
             success: true,
@@ -11,7 +11,7 @@ exports.dashboardController = {
             data,
         });
     },
-    async payrollTrend(req, res) {
+    async payrollTrend(_req, res) {
         const data = await dashboard_service_1.dashboardService.payrollTrend();
         return res.json({
             success: true,
@@ -19,7 +19,7 @@ exports.dashboardController = {
             data,
         });
     },
-    async attendanceToday(req, res) {
+    async attendanceToday(_req, res) {
         const data = await dashboard_service_1.dashboardService.attendanceToday();
         return res.json({
             success: true,
@@ -27,7 +27,7 @@ exports.dashboardController = {
             data,
         });
     },
-    async kpiAverage(req, res) {
+    async kpiAverage(_req, res) {
         const data = await dashboard_service_1.dashboardService.kpiAverage();
         return res.json({
             success: true,

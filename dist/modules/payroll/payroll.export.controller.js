@@ -23,10 +23,12 @@ class PayrollExportController {
                 res.setHeader('Content-Disposition', `attachment; filename=payroll_export_${period || 'all'}.xlsx`);
             }
             res.send(result);
+            return;
         }
         catch (error) {
             console.error('Error exporting payroll:', error);
             res.status(500).json({ success: false, message: error.message });
+            return;
         }
     }
 }

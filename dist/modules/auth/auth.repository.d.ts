@@ -1,6 +1,13 @@
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
+declare const userWithRoleAndEmployee: {
+    include: {
+        role: true;
+        employee: true;
+    };
+};
+export type UserWithRoleAndEmployee = Prisma.UserGetPayload<typeof userWithRoleAndEmployee>;
 export declare class AuthRepository {
-    findUserByEmail(email: string): Promise<User | null>;
+    findUserByEmail(email: string): Promise<UserWithRoleAndEmployee | null>;
     createUser(data: {
         name: string;
         email: string;
