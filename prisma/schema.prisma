@@ -1,153 +1,707 @@
-// ======================================
-// GENERATOR
-// ======================================
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }
 
-// ======================================
-// DATASOURCE (Prisma 7: TANPA url/directUrl)
-// ======================================
 datasource db {
   provider = "postgresql"
 }
 
-/* ==========================
-   ROLE MODEL
-   ========================== */
+/// ==========================
+///    ROLE MODEL
+///    ==========================
 model Role {
   id        String   @id @default(uuid())
   name      String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
   users     User[]
 
   @@map("app_roles")
 }
 
-/* ==========================
-   USER MODEL
-   ========================== */
+/// ==========================
+///    USER MODEL
+///    ==========================
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
+  id        String    @id @default(uuid())
+  email     String    @unique
   password  String
-  roleId    String   @map("role_id")
-  isActive  Boolean  @default(true) @map("is_active")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    String    @map("role_id")
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   employee  Employee?
+  role      Role      @relation(fields: [roleId], references: [id])
 
   @@map("app_users")
 }
 
-/* ==========================
-   EMPLOYEE MODEL
-   ========================== */
+/// ==========================
+///    EMPLOYEE MODEL
+///    ==========================
 model Employee {
-  id            String       @id @default(uuid())
-  userId        String       @unique @map("user_id")
-  fullName      String       @map("full_name")
-  phone         String?
-  address       String?
-  position      String?
-  department    String?
-  joinDate      DateTime     @default(now()) @map("join_date")
-  baseSalary    Decimal      @default(0) @map("base_salary") @db.Decimal(15, 2)
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
-
-  user          User         @relation(fields: [userId], references: [id])
-  attendances   Attendance[]
-  approvals     Approval[]
-  payrolls      Payroll[]
-  kpis          KPI[]
+  id                          String                        @id @default(uuid())
+  userId                      String                        @unique @map("user_id")
+  fullName                    String                        @map("full_name")
+  phone                       String?
+  address                     String?
+  position                    String?
+  department                  String?
+  joinDate                    DateTime                      @default(now()) @map("join_date")
+  baseSalary                  Decimal                       @default(0) @map("base_salary") @db.Decimal(15, 2)
+  createdAt                   DateTime                      @default(now()) @map("created_at")
+  updatedAt                   DateTime                      @updatedAt @map("updated_at")
+  pay_grade_id                String?
+  approvals                   Approval[]
+  attendances                 Attendance[]
+  app_employee_pay_components app_employee_pay_components[]
+  user                        User                          @relation(fields: [userId], references: [id])
+  app_pay_grades              app_pay_grades?               @relation(fields: [pay_grade_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_employee_paygrade")
+  kpis                        KPI[]
+  payrolls                    Payroll[]
 
   @@map("app_employees")
 }
 
-/* ==========================
-   ATTENDANCE MODEL
-   ========================== */
+/// ==========================
+///    ATTENDANCE MODEL
+///    ==========================
 model Attendance {
-  id          String    @id @default(uuid())
-  employeeId  String    @map("employee_id")
-  checkIn     DateTime? @map("check_in")
-  checkOut    DateTime? @map("check_out")
-  date        DateTime  @default(now())
-  status      String    @default("PRESENT")
-  notes       String?
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-
-  employee    Employee  @relation(fields: [employeeId], references: [id])
+  id         String    @id @default(uuid())
+  employeeId String    @map("employee_id")
+  checkIn    DateTime? @map("check_in")
+  checkOut   DateTime? @map("check_out")
+  date       DateTime  @default(now())
+  status     String    @default("PRESENT")
+  notes      String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  employee   Employee  @relation(fields: [employeeId], references: [id])
 
   @@map("app_attendances")
 }
 
-/* ==========================
-   APPROVAL MODEL
-   ========================== */
+/// ==========================
+///    APPROVAL MODEL
+///    ==========================
 model Approval {
-  id            String    @id @default(uuid())
-  employeeId    String    @map("employee_id")
-  type          String
-  title         String
-  description   String?
-  status        String    @default("PENDING")
-  requestDate   DateTime  @default(now()) @map("request_date")
-  approvedDate  DateTime? @map("approved_date")
-  approvedBy    String?   @map("approved_by")
-  notes         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-
-  employee      Employee  @relation(fields: [employeeId], references: [id])
+  id           String    @id @default(uuid())
+  employeeId   String    @map("employee_id")
+  type         String
+  title        String
+  description  String?
+  status       String    @default("PENDING")
+  requestDate  DateTime  @default(now()) @map("request_date")
+  approvedDate DateTime? @map("approved_date")
+  approvedBy   String?   @map("approved_by")
+  notes        String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  employee     Employee  @relation(fields: [employeeId], references: [id])
 
   @@map("app_approvals")
 }
 
-/* ==========================
-   PAYROLL MODEL
-   ========================== */
+/// ==========================
+///    PAYROLL MODEL
+///    ==========================
 model Payroll {
-  id            String    @id @default(uuid())
-  employeeId    String    @map("employee_id")
-  period        String
-  baseSalary    Decimal   @map("base_salary") @db.Decimal(15, 2)
-  allowances    Decimal   @default(0) @db.Decimal(15, 2)
-  deductions    Decimal   @default(0) @db.Decimal(15, 2)
-  totalSalary   Decimal   @map("total_salary") @db.Decimal(15, 2)
-  pph21         Decimal   @default(0) @db.Decimal(15, 2)
-  takeHomePay   Decimal   @default(0) @map("take_home_pay") @db.Decimal(15, 2)
-  status        String    @default("PENDING")
-  paidDate      DateTime? @map("paid_date")
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-
-  employee      Employee  @relation(fields: [employeeId], references: [id])
+  id          String    @id @default(uuid())
+  employeeId  String    @map("employee_id")
+  period      String
+  baseSalary  Decimal   @map("base_salary") @db.Decimal(15, 2)
+  allowances  Decimal   @default(0) @db.Decimal(15, 2)
+  deductions  Decimal   @default(0) @db.Decimal(15, 2)
+  totalSalary Decimal   @map("total_salary") @db.Decimal(15, 2)
+  status      String    @default("PENDING")
+  paidDate    DateTime? @map("paid_date")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  pph21       Decimal?  @default(0) @db.Decimal(15, 2)
+  takeHomePay Decimal?  @default(0) @map("take_home_pay") @db.Decimal(15, 2)
+  employee    Employee  @relation(fields: [employeeId], references: [id])
 
   @@map("app_payrolls")
 }
 
-/* ==========================
-   KPI MODEL
-   ========================== */
+/// ==========================
+///    KPI MODEL
+///    ==========================
 model KPI {
-  id          String    @id @default(uuid())
-  employeeId  String    @map("employee_id")
-  period      String
-  score       Decimal   @db.Decimal(5, 2)
-  category    String
-  notes       String?
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
-
-  employee    Employee  @relation(fields: [employeeId], references: [id])
+  id         String   @id @default(uuid())
+  employeeId String   @map("employee_id")
+  period     String
+  score      Decimal  @db.Decimal(5, 2)
+  category   String
+  notes      String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  employee   Employee @relation(fields: [employeeId], references: [id])
 
   @@map("app_kpis")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model app_employee_pay_components {
+  id                 String             @id
+  employee_id        String
+  component_id       String
+  amount             Decimal            @db.Decimal(15, 2)
+  effective_from     DateTime?          @default(now()) @db.Timestamp(6)
+  effective_to       DateTime?          @db.Timestamp(6)
+  app_pay_components app_pay_components @relation(fields: [component_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_emp_component_component")
+  app_employees      Employee           @relation(fields: [employee_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_emp_component_employee")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model app_pay_components {
+  id                          String                        @id
+  code                        String                        @unique @db.VarChar(50)
+  name                        String                        @db.VarChar(100)
+  type                        String                        @db.VarChar(20)
+  calculation                 String                        @db.VarChar(20)
+  amount                      Decimal                       @db.Decimal(15, 2)
+  created_at                  DateTime?                     @default(now()) @db.Timestamp(6)
+  updated_at                  DateTime?                     @default(now()) @db.Timestamp(6)
+  app_employee_pay_components app_employee_pay_components[]
+  app_pay_grade_components    app_pay_grade_components[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model app_pay_grade_components {
+  id                 String             @id
+  pay_grade_id       String
+  component_id       String
+  amount             Decimal            @db.Decimal(15, 2)
+  app_pay_components app_pay_components @relation(fields: [component_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_component")
+  app_pay_grades     app_pay_grades     @relation(fields: [pay_grade_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_paygrade")
+
+  @@unique([pay_grade_id, component_id])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model app_pay_grades {
+  id                       String                     @id
+  name                     String                     @db.VarChar(100)
+  description              String?
+  base_salary              Decimal                    @db.Decimal(15, 2)
+  created_at               DateTime?                  @default(now()) @db.Timestamp(6)
+  updated_at               DateTime?                  @default(now()) @db.Timestamp(6)
+  app_employees            Employee[]
+  app_pay_grade_components app_pay_grade_components[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model approval_requests {
+  approval_id        Int                 @id @default(autoincrement())
+  employee_id        Int?
+  approval_type_id   String?             @db.VarChar(32)
+  approval_status    String?             @db.VarChar(32)
+  approval_date      DateTime?           @db.Date
+  amount             Int?
+  attachment_url     String?             @db.VarChar(255)
+  created_at         DateTime?           @db.Timestamp(6)
+  created_by         String?             @db.VarChar(32)
+  updated_at         DateTime?           @db.Timestamp(6)
+  updated_by         String?             @db.VarChar(32)
+  category_id        Int?
+  approval_types     approval_types?     @relation(fields: [approval_type_id], references: [approval_type_id], onDelete: NoAction, onUpdate: NoAction)
+  category_approvals category_approvals? @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
+  employees          employees?          @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+  approved           approved[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model approval_types {
+  approval_type_id   String               @id @db.VarChar(32)
+  approval_type      String?              @db.VarChar(64)
+  created_at         DateTime?            @db.Timestamp(6)
+  created_by         String?              @db.VarChar(32)
+  updated_at         DateTime?            @db.Timestamp(6)
+  updated_by         String?              @db.VarChar(32)
+  approval_requests  approval_requests[]
+  category_approvals category_approvals[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model approved {
+  approved_id        Int                 @id @default(autoincrement())
+  approval_id        Int?
+  approval_date      DateTime?           @db.Date
+  approval_status    String?             @db.VarChar(20)
+  approved_by        Int?
+  approval_requests  approval_requests?  @relation(fields: [approval_id], references: [approval_id], onDelete: NoAction, onUpdate: NoAction)
+  employee_positions employee_positions? @relation(fields: [approved_by], references: [employee_position_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model attendance {
+  attendance_id Int        @id @default(autoincrement())
+  employee_id   Int?
+  status        String?    @db.VarChar(32)
+  work_date     DateTime?  @db.Date
+  check_in      DateTime?  @db.Timestamp(6)
+  check_out     DateTime?  @db.Timestamp(6)
+  work_location String?    @db.VarChar(255)
+  notes         String?    @db.VarChar(255)
+  employees     employees? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model bank_account {
+  bank_account_id Int        @id @default(autoincrement())
+  employee_id     Int?
+  bank_name       String?    @db.VarChar(64)
+  account_no      String?    @db.VarChar(64)
+  account_holder  String?    @db.VarChar(64)
+  employees       employees? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model category_approvals {
+  category_id       Int                 @id @default(autoincrement())
+  approval_type_id  String?             @db.VarChar(32)
+  category          String?             @db.VarChar(64)
+  approval_requests approval_requests[]
+  approval_types    approval_types?     @relation(fields: [approval_type_id], references: [approval_type_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model departments {
+  department_id      Int                  @id @default(autoincrement())
+  foundation_id      String?              @db.VarChar(8)
+  department_name    String?              @db.VarChar(32)
+  description        String?              @db.VarChar(128)
+  created_at         DateTime?            @db.Timestamp(6)
+  updated_at         DateTime?            @db.Timestamp(6)
+  code               String?              @db.VarChar(8)
+  parent_id          Int?
+  check_in           DateTime?            @db.Time(6)
+  check_out          DateTime?            @db.Time(6)
+  foundations        foundations?         @relation(fields: [foundation_id], references: [foundation_id], onDelete: NoAction, onUpdate: NoAction)
+  employee_positions employee_positions[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model document_identity {
+  id               Int             @id @default(autoincrement())
+  identity_type_id Int?
+  user_id          String?         @db.VarChar(16)
+  identity_number  String?         @db.VarChar(20)
+  file_name        String?
+  description      String?
+  identity_types   identity_types? @relation(fields: [identity_type_id], references: [identity_types_id], onDelete: NoAction, onUpdate: NoAction)
+  users            users?          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model education_levels {
+  educatin_level_id Int         @id @default(autoincrement())
+  level             Int?
+  create_at         DateTime?   @db.Timestamp(6)
+  create_by         String?     @db.VarChar(32)
+  update_at         DateTime?   @db.Timestamp(6)
+  update_by         Int?
+  employees         employees[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model employee_families {
+  nik            String     @id @db.VarChar(16)
+  no_kk          String?    @db.VarChar(16)
+  fullname       String?    @db.VarChar(64)
+  place_of_birth String?    @db.VarChar(32)
+  date_of_birth  DateTime?  @db.Date
+  employee_id    Int?
+  gender         String?    @db.VarChar(1)
+  status_active  Int?
+  employees      employees? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model employee_kpi {
+  emp_kpi_id            Int                 @id @default(autoincrement())
+  employee_id           Int?
+  period_id             Int?
+  template_id           Int?
+  scale_id              Int?
+  reviewer_id           Int?
+  secondary_reviewer_id Int?
+  status                String?             @db.VarChar(32)
+  submitted_at          DateTime?           @db.Timestamp(6)
+  approved_at           DateTime?           @db.Timestamp(6)
+  locked_at             DateTime?           @db.Timestamp(6)
+  notes                 String?             @db.VarChar(255)
+  employees             employees?          @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_period            kpi_period?         @relation(fields: [period_id], references: [period_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_scale             kpi_scale?          @relation(fields: [scale_id], references: [scale_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_template          kpi_template?       @relation(fields: [template_id], references: [template_id], onDelete: NoAction, onUpdate: NoAction)
+  employee_kpi_item     employee_kpi_item[]
+  kpi_approval          kpi_approval[]
+  kpi_review            kpi_review[]
+  kpi_score             kpi_score[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model employee_kpi_item {
+  emp_kpi_item_id Int            @id @default(autoincrement())
+  emp_kpi_id      Int?
+  indicator_id    Int?
+  weight          Decimal?       @db.Decimal
+  target_value    Decimal?       @db.Decimal
+  target_text     String?        @db.VarChar(255)
+  baseline_value  Decimal?       @db.Decimal
+  calc_method     String?        @db.VarChar(64)
+  unit            String?        @db.VarChar(32)
+  direction       String?        @db.VarChar(32)
+  sort_order      Int?
+  employee_kpi    employee_kpi?  @relation(fields: [emp_kpi_id], references: [emp_kpi_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_indicator   kpi_indicator? @relation(fields: [indicator_id], references: [indicator_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_checkin     kpi_checkin[]
+  kpi_evidence    kpi_evidence[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model employee_pay_component {
+  epc_id          Int            @id @default(autoincrement())
+  employee_id     Int?
+  component_id    Int?
+  amount_override Decimal?       @db.Decimal(12, 2)
+  rate_override   Decimal?       @db.Decimal(12, 2)
+  effective_from  DateTime?      @db.Date
+  effective_to    DateTime?      @db.Date
+  pay_component   pay_component? @relation(fields: [component_id], references: [component_id], onDelete: NoAction, onUpdate: NoAction)
+  employees       employees?     @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model employee_positions {
+  employee_position_id Int            @id @default(autoincrement())
+  employee_id          Int?
+  position_id          String?        @db.VarChar(10)
+  department_id        Int?
+  start_date           DateTime?      @db.Date
+  end_date             DateTime?      @db.Date
+  sk_file_name         String?
+  sk_number            String?        @db.VarChar(32)
+  base_on_salary       Int?
+  created_at           DateTime?      @db.Timestamp(6)
+  updated_at           DateTime?      @db.Timestamp(6)
+  pay_grade_id         Int?
+  approved             approved[]
+  departments          departments?   @relation(fields: [department_id], references: [department_id], onDelete: NoAction, onUpdate: NoAction)
+  employees            employees?     @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+  job_positions        job_positions? @relation(fields: [position_id], references: [position_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model employees {
+  employee_id            Int                      @id @default(autoincrement())
+  hire_date              DateTime?                @db.Date
+  user_id                String?                  @db.VarChar(16)
+  fullname               String?                  @db.VarChar(100)
+  join_date              DateTime?                @db.Date
+  resign_date            DateTime?                @db.Date
+  emp_code               String?                  @db.VarChar(20)
+  gender                 String?                  @db.VarChar(1)
+  npwp                   String?                  @db.VarChar(20)
+  place_of_birth         String?                  @db.VarChar(32)
+  date_of_birth          DateTime?                @db.Date
+  marital_status         String?                  @db.VarChar(5)
+  religion_id            Int?
+  education_level_id     Int?
+  created_at             DateTime?                @db.Timestamp(6)
+  updated_at             DateTime?                @db.Timestamp(6)
+  address                String?
+  approval_requests      approval_requests[]
+  attendance             attendance[]
+  bank_account           bank_account[]
+  employee_families      employee_families[]
+  employee_kpi           employee_kpi[]
+  employee_pay_component employee_pay_component[]
+  employee_positions     employee_positions[]
+  education_levels       education_levels?        @relation(fields: [education_level_id], references: [educatin_level_id], onDelete: NoAction, onUpdate: NoAction)
+  users                  users?                   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  payslip                payslip[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model foundations {
+  foundation_id   String        @id @db.VarChar(8)
+  foundation_name String?       @db.VarChar(64)
+  email           String?       @db.VarChar(64)
+  phone           String?       @db.VarChar(32)
+  address         String?
+  status          Int?
+  departments     departments[]
+  users           users[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model identity_types {
+  identity_types_id  Int                 @id @default(autoincrement())
+  identity_type_name String?             @db.VarChar(64)
+  document_identity  document_identity[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model job_positions {
+  position_id        String               @id @db.VarChar(10)
+  level              String?              @db.VarChar(20)
+  salary_grade       Decimal?             @db.Decimal(10, 2)
+  title              String?              @db.VarChar(50)
+  description        String?
+  created_at         DateTime?            @db.Timestamp(6)
+  updated_at         DateTime?            @db.Timestamp(6)
+  employee_positions employee_positions[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_approval {
+  approval_id  Int           @id @default(autoincrement())
+  emp_kpi_id   Int?
+  step         Int?
+  approver_id  Int?
+  action       String?       @db.VarChar(32)
+  comment      String?       @db.VarChar(255)
+  action_at    DateTime?     @db.Timestamp(6)
+  employee_kpi employee_kpi? @relation(fields: [emp_kpi_id], references: [emp_kpi_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_category {
+  category_id   Int             @id @default(autoincrement())
+  code          String?         @db.VarChar(32)
+  name          String?         @db.VarChar(64)
+  description   String?         @db.VarChar(255)
+  kpi_indicator kpi_indicator[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_checkin {
+  checkin_id        Int                @id @default(autoincrement())
+  emp_kpi_item_id   Int?
+  checkin_date      DateTime?          @db.Date
+  actual_value      Decimal?           @db.Decimal
+  comment           String?            @db.VarChar(255)
+  created_by        Int?
+  created_at        DateTime?          @db.Timestamp(6)
+  employee_kpi_item employee_kpi_item? @relation(fields: [emp_kpi_item_id], references: [emp_kpi_item_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_evidence      kpi_evidence[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_evidence {
+  evidence_id       Int                @id @default(autoincrement())
+  emp_kpi_item_id   Int?
+  checkin_id        Int?
+  title             String?            @db.VarChar(255)
+  url               String?            @db.VarChar(255)
+  uploaded_by       Int?
+  uploaded_at       DateTime?          @db.Timestamp(6)
+  kpi_checkin       kpi_checkin?       @relation(fields: [checkin_id], references: [checkin_id], onDelete: NoAction, onUpdate: NoAction)
+  employee_kpi_item employee_kpi_item? @relation(fields: [emp_kpi_item_id], references: [emp_kpi_item_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_indicator {
+  indicator_id      Int                 @id @default(autoincrement())
+  category_id       Int?
+  code              String?             @unique @db.VarChar(32)
+  name              String?             @db.VarChar(100)
+  description       String?             @db.VarChar(255)
+  unit              String?             @db.VarChar(32)
+  calc_method       String?             @db.VarChar(32)
+  formula           String?             @db.VarChar(255)
+  direction         String?             @db.VarChar(32)
+  default_weight    Decimal?            @db.Decimal
+  is_active         Boolean?
+  employee_kpi_item employee_kpi_item[]
+  kpi_category      kpi_category?       @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_template_item kpi_template_item[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_period {
+  period_id    Int            @id @default(autoincrement())
+  code         String?        @db.VarChar(64)
+  name         String?        @db.VarChar(100)
+  date_start   DateTime?      @db.Date
+  date_end     DateTime?      @db.Date
+  frequency    String?        @db.VarChar(32)
+  status       String?        @db.VarChar(32)
+  employee_kpi employee_kpi[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_review {
+  review_id      Int           @id @default(autoincrement())
+  emp_kpi_id     Int?
+  reviewer_id    Int?
+  review_stage   String?       @db.VarChar(64)
+  review_date    DateTime?     @db.Date
+  comment        String?
+  overall_rating Decimal?      @db.Decimal
+  employee_kpi   employee_kpi? @relation(fields: [emp_kpi_id], references: [emp_kpi_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_scale {
+  scale_id        Int               @id @default(autoincrement())
+  name            String?           @db.VarChar(64)
+  min_value       Decimal?          @db.Decimal
+  max_value       Decimal?          @db.Decimal
+  step            Decimal?          @db.Decimal
+  description     String?           @db.VarChar(200)
+  employee_kpi    employee_kpi[]
+  kpi_scale_level kpi_scale_level[]
+  kpi_template    kpi_template[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_scale_level {
+  level_id    Int        @id @default(autoincrement())
+  scale_id    Int?
+  value       Decimal?   @db.Decimal
+  label       String?    @db.VarChar(64)
+  description String?    @db.VarChar(255)
+  kpi_scale   kpi_scale? @relation(fields: [scale_id], references: [scale_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_score {
+  score_id         Int           @id @default(autoincrement())
+  emp_kpi_id       Int?
+  calc_date        DateTime?     @db.Timestamp(6)
+  method           String?       @db.VarChar(64)
+  weighted_score   Decimal?      @db.Decimal
+  rating_value     Decimal?      @db.Decimal
+  rating_label     String?       @db.VarChar(64)
+  normalized_score Decimal?      @db.Decimal
+  details_json     String?
+  locked           Boolean?
+  employee_kpi     employee_kpi? @relation(fields: [emp_kpi_id], references: [emp_kpi_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_template {
+  template_id       Int                 @id @default(autoincrement())
+  name              String?             @db.VarChar(100)
+  description       String?             @db.VarChar(255)
+  department_id     Int?
+  position_id       Int?
+  pay_grade_id      Int?
+  scale_id          Int?
+  is_active         Boolean?
+  employee_kpi      employee_kpi[]
+  kpi_scale         kpi_scale?          @relation(fields: [scale_id], references: [scale_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_template_item kpi_template_item[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model kpi_template_item {
+  template_item_id Int            @id @default(autoincrement())
+  template_id      Int?
+  indicator_id     Int?
+  weight           Decimal?       @db.Decimal
+  target_value     Decimal?       @db.Decimal
+  target_text      String?        @db.VarChar(255)
+  baseline_value   Decimal?       @db.Decimal
+  kpi_indicator    kpi_indicator? @relation(fields: [indicator_id], references: [indicator_id], onDelete: NoAction, onUpdate: NoAction)
+  kpi_template     kpi_template?  @relation(fields: [template_id], references: [template_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model pay_component {
+  component_id           Int                      @id @default(autoincrement())
+  code                   String?                  @db.VarChar(32)
+  name                   String?                  @db.VarChar(64)
+  type                   String?                  @db.VarChar(32)
+  calc_basis             Int?
+  taxable                Boolean?
+  statutory              Boolean?
+  employee_pay_component employee_pay_component[]
+  pay_grade_component    pay_grade_component[]
+  payslip_line           payslip_line[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model pay_grade {
+  pay_grade_id        Int                   @id @default(autoincrement())
+  name                String?               @db.VarChar(64)
+  currency            String?               @db.VarChar(16)
+  pay_schedule        String?               @db.VarChar(32)
+  pay_grade_component pay_grade_component[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model pay_grade_component {
+  pgc_id         Int            @id @default(autoincrement())
+  pay_grade_id   Int?
+  component_id   Int?
+  default_amount Decimal?       @db.Decimal(12, 2)
+  default_rate   Decimal?       @db.Decimal(12, 2)
+  is_active      Boolean?
+  pay_component  pay_component? @relation(fields: [component_id], references: [component_id], onDelete: NoAction, onUpdate: NoAction)
+  pay_grade      pay_grade?     @relation(fields: [pay_grade_id], references: [pay_grade_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model payroll_period {
+  period_id   Int       @id @default(autoincrement())
+  period_code String?   @db.VarChar(32)
+  date_start  DateTime? @db.Date
+  date_end    DateTime? @db.Date
+  pay_date    DateTime? @db.Date
+  status      String?   @db.VarChar(32)
+  payslip     payslip[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model payslip {
+  payslip_id      Int             @id @default(autoincrement())
+  employee_id     Int?
+  period_id       Int?
+  gross_amount    Decimal?        @db.Decimal(12, 2)
+  total_deduction Decimal?        @db.Decimal(12, 2)
+  net_amount      Decimal?        @db.Decimal(12, 2)
+  generated_at    DateTime?       @db.Timestamp(6)
+  status          String?         @db.VarChar(32)
+  employees       employees?      @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction)
+  payroll_period  payroll_period? @relation(fields: [period_id], references: [period_id], onDelete: NoAction, onUpdate: NoAction)
+  payslip_line    payslip_line[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model payslip_line {
+  line_id       Int            @id @default(autoincrement())
+  payslip_id    Int?
+  component_id  Int?
+  quantity      Decimal?       @db.Decimal(12, 2)
+  rate          Decimal?       @db.Decimal(12, 2)
+  amount        Decimal?       @db.Decimal(12, 2)
+  source_type   String?        @db.VarChar(64)
+  source_id     Int?
+  pay_component pay_component? @relation(fields: [component_id], references: [component_id], onDelete: NoAction, onUpdate: NoAction)
+  payslip       payslip?       @relation(fields: [payslip_id], references: [payslip_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model users {
+  user_id           String              @id @db.VarChar(16)
+  foundation_id     String?             @db.VarChar(8)
+  name              String?             @db.VarChar(100)
+  role_id           String?             @db.VarChar(32)
+  phone             String?             @db.VarChar(32)
+  password          String?             @db.VarChar(255)
+  created_at        DateTime?           @db.Timestamp(6)
+  updated_at        DateTime?           @db.Timestamp(6)
+  last_login        DateTime?           @db.Timestamp(6)
+  profile_picture   String?             @db.VarChar(255)
+  email             String?             @unique @db.VarChar(100)
+  active            Boolean?
+  document_identity document_identity[]
+  employees         employees[]
+  foundations       foundations?        @relation(fields: [foundation_id], references: [foundation_id], onDelete: NoAction, onUpdate: NoAction)
 }

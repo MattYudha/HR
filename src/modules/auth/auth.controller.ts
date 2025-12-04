@@ -4,20 +4,27 @@ import authService from './auth.service';
 export class AuthController {
   async register(req: Request, res: Response): Promise<void> {
     try {
-      const { name, email, password } = req.body; // Extract name
+      const { fullName, email, password, roleId } = req.body;
 
-      const result = await authService.register(name, email, password); // Pass name
+      // Basic validation for required fields
+      if (!fullName || !email || !password) {
+        res.status(400).json({
+          success: false,
+          message: 'Full Name, Email, and Password are required for registration.'
+        });
+        return;
+      }
+
+      const newUser = await authService.registerUser(fullName, email, password, roleId);
 
       res.status(201).json({
         success: true,
         message: 'User registered successfully',
         data: {
-          user: {
-            id: result.user.id,
-            name: result.user.employee?.fullName, // Include name in response
-            email: result.user.email
-          },
-          token: result.token
+          id: newUser.id,
+          email: newUser.email,
+          role: newUser.role,
+          employee: newUser.employee, // Will be null if not created by repository or if employee data is not included
         }
       });
     } catch (error) {

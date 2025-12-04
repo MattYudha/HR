@@ -5,7 +5,7 @@ import authRepository, { UserWithRoleAndEmployee } from './auth.repository';
 import prisma from '../../utils/prisma'; // Import the shared prisma instance
 
 export class AuthService {
-  async register(name: string, email: string, password: string): Promise<{ user: UserWithRoleAndEmployee; token: string }> { // Modified method signature
+  async registerUser(fullName: string, email: string, password: string, roleId?: string): Promise<UserWithRoleAndEmployee> {
     const existingUser = await authRepository.findUserByEmail(email);
 
     if (existingUser) {
@@ -14,31 +14,34 @@ export class AuthService {
 
     const hashedPassword = await bcryptjs.hash(password, 10);
 
-    // Find the 'employee' role ID
-    const employeeRole = await prisma.role.findUnique({
-        where: { name: 'employee' },
-    });
+    let finalRoleId = roleId;
+    if (!finalRoleId) {
+      // Find the 'employee' role ID if no roleId is provided
+      const employeeRole = await prisma.role.findUnique({
+          where: { name: 'employee' },
+      });
 
-    if (!employeeRole) {
-        throw new Error('Employee role not found. Please seed the database.');
+      if (!employeeRole) {
+          throw new Error('Employee role not found. Please seed the database.');
+      }
+      finalRoleId = employeeRole.id;
     }
+
 
     const user = await authRepository.createUser({
-      name, // Pass name to repository
+      name: fullName, // Pass fullName to repository
       email,
       password: hashedPassword,
-      roleId: employeeRole.id, // Assign employee role
+      roleId: finalRoleId, // Use the determined roleId
     });
 
-    // Fetch the user again to get the role object
-    const newUserWithRole: UserWithRoleAndEmployee | null = await authRepository.findUserByEmail(user.email);
-    if (!newUserWithRole) {
-      throw new Error('Failed to create user correctly');
+    // Fetch the user again to get the role object and employee (if created by repository)
+    const newUserWithRoleAndEmployee: UserWithRoleAndEmployee | null = await authRepository.findUserByEmail(user.email);
+    if (!newUserWithRoleAndEmployee) {
+      throw new Error('Failed to retrieve newly created user correctly');
     }
 
-    const token = this.generateToken(newUserWithRole.id, newUserWithRole.email, newUserWithRole.role.name);
-
-    return { user: newUserWithRole, token };
+    return newUserWithRoleAndEmployee;
   }
 
   async login(email: string, password: string): Promise<{ user: UserWithRoleAndEmployee; token: string }> {

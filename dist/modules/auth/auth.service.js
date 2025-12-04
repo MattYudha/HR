@@ -10,30 +10,33 @@ const env_1 = require("../../config/env");
 const auth_repository_1 = __importDefault(require("./auth.repository"));
 const prisma_1 = __importDefault(require("../../utils/prisma"));
 class AuthService {
-    async register(name, email, password) {
+    async registerUser(fullName, email, password, roleId) {
         const existingUser = await auth_repository_1.default.findUserByEmail(email);
         if (existingUser) {
             throw new Error('User already exists');
         }
         const hashedPassword = await bcryptjs_1.default.hash(password, 10);
-        const employeeRole = await prisma_1.default.role.findUnique({
-            where: { name: 'employee' },
-        });
-        if (!employeeRole) {
-            throw new Error('Employee role not found. Please seed the database.');
+        let finalRoleId = roleId;
+        if (!finalRoleId) {
+            const employeeRole = await prisma_1.default.role.findUnique({
+                where: { name: 'employee' },
+            });
+            if (!employeeRole) {
+                throw new Error('Employee role not found. Please seed the database.');
+            }
+            finalRoleId = employeeRole.id;
         }
         const user = await auth_repository_1.default.createUser({
-            name,
+            name: fullName,
             email,
             password: hashedPassword,
-            roleId: employeeRole.id,
+            roleId: finalRoleId,
         });
-        const newUserWithRole = await auth_repository_1.default.findUserByEmail(user.email);
-        if (!newUserWithRole) {
-            throw new Error('Failed to create user correctly');
+        const newUserWithRoleAndEmployee = await auth_repository_1.default.findUserByEmail(user.email);
+        if (!newUserWithRoleAndEmployee) {
+            throw new Error('Failed to retrieve newly created user correctly');
         }
-        const token = this.generateToken(newUserWithRole.id, newUserWithRole.email, newUserWithRole.role.name);
-        return { user: newUserWithRole, token };
+        return newUserWithRoleAndEmployee;
     }
     async login(email, password) {
         if (email === 'test@example.com' && password === 'testpassword') {

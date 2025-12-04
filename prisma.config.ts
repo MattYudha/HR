@@ -1,8 +1,15 @@
-import { defineConfig } from '@prisma/config';
+import 'dotenv/config';
+import path from 'node:path';
+import { defineConfig, env } from 'prisma/config';
 
 export default defineConfig({
+  schema: path.join('prisma', 'schema.prisma'),
+
   datasource: {
-    url: process.env.DATABASE_URL!,
-    directUrl: process.env.DIRECT_URL!,
+    url: env('DIRECT_URL'), // sekarang pakai pooler
+  },
+
+  migrations: {
+    path: path.join('prisma', 'migrations'),
   },
 });

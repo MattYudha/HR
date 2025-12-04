@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/server.js",
   "scripts": {
-    "dev": "cross-env PRISMA_CLIENT_ENGINE_TYPE=binary ts-node-dev --respawn --transpile-only --clear src/server.ts",
+    "dev": "cross-env PORT=3001 PRISMA_CLIENT_ENGINE_TYPE=binary ts-node-dev --respawn --transpile-only --clear src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "postinstall": "prisma generate",

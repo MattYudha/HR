@@ -8,18 +8,23 @@ const auth_service_1 = __importDefault(require("./auth.service"));
 class AuthController {
     async register(req, res) {
         try {
-            const { name, email, password } = req.body;
-            const result = await auth_service_1.default.register(name, email, password);
+            const { fullName, email, password, roleId } = req.body;
+            if (!fullName || !email || !password) {
+                res.status(400).json({
+                    success: false,
+                    message: 'Full Name, Email, and Password are required for registration.'
+                });
+                return;
+            }
+            const newUser = await auth_service_1.default.registerUser(fullName, email, password, roleId);
             res.status(201).json({
                 success: true,
                 message: 'User registered successfully',
                 data: {
-                    user: {
-                        id: result.user.id,
-                        name: result.user.employee?.fullName,
-                        email: result.user.email
-                    },
-                    token: result.token
+                    id: newUser.id,
+                    email: newUser.email,
+                    role: newUser.role,
+                    employee: newUser.employee,
                 }
             });
         }
