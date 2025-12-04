@@ -1,3 +1,4 @@
+// prisma/seed.ts
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
@@ -8,18 +9,18 @@ import path from 'path';
 // 1. Load Environment Variables
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-// --- PERUBAHAN UTAMA DI SINI ---
-// Kita gunakan DIRECT_URL (Port 5432) untuk seeding agar menghindari error "Tenant not found"
-// Pastikan variabel DIRECT_URL ada di file .env Anda!
-const connectionString = process.env.DIRECT_URL; 
+// Gunakan DATABASE_URL (POOLER) untuk seeding
+const connectionString = process.env.DATABASE_URL;
 
 if (!connectionString) {
-  console.error('❌ Error: DIRECT_URL tidak ditemukan di file .env');
-  console.error('Pastikan file .env memiliki baris: DIRECT_URL="postgresql://..."');
+  console.error('❌ Error: DATABASE_URL tidak ditemukan di file .env');
+  console.error(
+    'Pastikan file .env memiliki baris: DATABASE_URL="postgresql://..."',
+  );
   process.exit(1);
 }
 
-console.log('🔌 Connecting using DIRECT_URL (Port 5432)...');
+console.log('🔌 Connecting using DATABASE_URL (Pooler)...');
 
 // 2. Setup Driver Adapter
 const pool = new Pool({ connectionString });
@@ -46,7 +47,7 @@ async function main() {
 
   // 4. Create a default admin user
   const hashedPassword = await bcrypt.hash('admin123', 10);
-  
+
   const adminUser = await prisma.user.upsert({
     where: { email: 'admin@example.com' },
     update: {},
@@ -75,7 +76,7 @@ async function main() {
       joinDate: new Date(),
     },
   });
-  
+
   console.log(`✅ Employee profile created for admin.`);
 }
 

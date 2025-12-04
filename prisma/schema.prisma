@@ -8,8 +8,8 @@ datasource db {
 }
 
 /// ==========================
-///    ROLE MODEL
-///    ==========================
+/// ROLE MODEL
+/// ==========================
 model Role {
   id        String   @id @default(uuid())
   name      String   @unique
@@ -21,8 +21,8 @@ model Role {
 }
 
 /// ==========================
-///    USER MODEL
-///    ==========================
+/// USER MODEL
+/// ==========================
 model User {
   id        String    @id @default(uuid())
   email     String    @unique
@@ -38,8 +38,8 @@ model User {
 }
 
 /// ==========================
-///    EMPLOYEE MODEL
-///    ==========================
+/// EMPLOYEE MODEL
+/// ==========================
 model Employee {
   id                          String                        @id @default(uuid())
   userId                      String                        @unique @map("user_id")
@@ -65,8 +65,8 @@ model Employee {
 }
 
 /// ==========================
-///    ATTENDANCE MODEL
-///    ==========================
+/// ATTENDANCE MODEL
+/// ==========================
 model Attendance {
   id         String    @id @default(uuid())
   employeeId String    @map("employee_id")
@@ -83,8 +83,8 @@ model Attendance {
 }
 
 /// ==========================
-///    APPROVAL MODEL
-///    ==========================
+/// APPROVAL MODEL
+/// ==========================
 model Approval {
   id           String    @id @default(uuid())
   employeeId   String    @map("employee_id")
@@ -104,8 +104,8 @@ model Approval {
 }
 
 /// ==========================
-///    PAYROLL MODEL
-///    ==========================
+/// PAYROLL MODEL
+/// ==========================
 model Payroll {
   id          String    @id @default(uuid())
   employeeId  String    @map("employee_id")
@@ -126,8 +126,8 @@ model Payroll {
 }
 
 /// ==========================
-///    KPI MODEL
-///    ==========================
+/// KPI MODEL
+/// ==========================
 model KPI {
   id         String   @id @default(uuid())
   employeeId String   @map("employee_id")
